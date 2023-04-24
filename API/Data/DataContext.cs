@@ -14,5 +14,6 @@ namespace API.Data
 
         public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
     }
 }
