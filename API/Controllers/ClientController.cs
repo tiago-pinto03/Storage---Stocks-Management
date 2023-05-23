@@ -24,14 +24,39 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClients()
         {
-            return await _context.Clients.ToListAsync();
+            var client = await _context.Clients.Select(u => new
+            {
+                u.Id,
+                u.Name,
+                u.Email,
+                u.NIF,
+                u.Phone
+            }).ToListAsync();
+
+            return Ok(client);
         }
 
         // GET: api/Clients/'uuid'
         [HttpGet("{id}")]
         public async Task<ActionResult<Client>> GetClient(Guid id)
         {
-            return await _context.Clients.FindAsync(id);
+            var client = await _context.Clients.Where(u => u.Id == id).Select(u => new
+            {
+                u.Id,
+                u.Name,
+                u.Email,
+                u.NIF,
+                u.Phone
+            }).ToListAsync();
+
+            if (client == null)
+            {
+                return NotFound();
+            }
+            if(client.Count <= 0)
+            {return BadRequest("ClientId not found!");}
+
+            return Ok(client);
         }
 
         // PUT: api/Clients/'uuid'
@@ -75,6 +100,7 @@ namespace API.Controllers
 
             return new ClientDto
             {
+                Id = client.Id,
                 Name = client.Name,
                 Email = client.Email,
                 Token = _tokenService.CreateToken(client)
@@ -101,6 +127,8 @@ namespace API.Controllers
 
             var clientDto = new ClientDto
             {
+                Id = client.Id,
+                Name = client.Name,
                 Email = client.Email,
                 Token = _tokenService.CreateToken(client)
             };

@@ -22,16 +22,39 @@ namespace API.Controllers
 
         // GET: api/Employee
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployee()
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-            return await _context.Employees.ToListAsync();
+            var emp = await _context.Employees.Select(u => new
+            {
+                u.Id,
+                u.Name,
+                u.Email,
+                u.Phone
+            }).ToListAsync();
+
+            return Ok(emp);
         }
 
         // GET: api/Employee/'uuid'
         [HttpGet("{id}")]
-        public async Task<ActionResult<Employee>> GetEmployee(Guid id)
+        public async Task<ActionResult<PutEmployeeDto>> GetEmployeeById(Guid id)
         {
-            return await _context.Employees.FindAsync(id);
+            var employee = await _context.Employees.FindAsync(id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            var employeeDto = new PutEmployeeDto
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                Email = employee.Email,
+                Phone = employee.Phone
+            };
+
+            return Ok(employeeDto);
         }
 
         // PUT: api/Employee/'uuid'
@@ -74,6 +97,7 @@ namespace API.Controllers
 
             return new EmployeeDto
             {
+                Id = employee.Id,
                 Name = employee.Name,
                 Email = employee.Email,
                 Token = _tokenService.CreateTokenEmp(employee)
@@ -100,6 +124,8 @@ namespace API.Controllers
 
             var employeeDto = new EmployeeDto
             {
+                Id = employee.Id,
+                Name = employee.Name,
                 Email = employee.Email,
                 Token = _tokenService.CreateTokenEmp(employee)
             };

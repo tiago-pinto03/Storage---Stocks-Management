@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,5 +11,7 @@ namespace API.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Sales> Sales { get; set; }
     }
 }
