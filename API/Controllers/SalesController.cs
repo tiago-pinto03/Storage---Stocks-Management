@@ -90,6 +90,7 @@ namespace API.Controllers
             }
 
             product.Quantity -= salesCreateDto.Quantity;
+            salesCreateDto.Price = product.UnitPrice * salesCreateDto.Quantity;
 
             if(product.Quantity == 0)
             {product.Available = false;}
@@ -102,11 +103,6 @@ namespace API.Controllers
                 Client = client,
                 Employee = employee
             };
-
-            if (sales.Price <= 0)
-            {
-                return BadRequest("Invalid Price");
-            }
 
             _context.Sales.Add(sales);
             await _context.SaveChangesAsync();

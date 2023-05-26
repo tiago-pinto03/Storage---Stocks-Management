@@ -53,8 +53,8 @@ namespace API.Controllers
             {
                 return NotFound();
             }
-            if(client.Count <= 0)
-            {return BadRequest("ClientId not found!");}
+            if (client.Count <= 0)
+            { return BadRequest("ClientId not found!"); }
 
             return Ok(client);
         }
@@ -81,18 +81,18 @@ namespace API.Controllers
 
         // Register: api/clients/register
         [HttpPost("register")]
-        public async Task<ActionResult<ClientDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<ClientDto>> Register(RegisterClientDto registerClientDto)
         {
-            if (await ClientExists(registerDto.Email)) return BadRequest("Email is taken");
+            if (await ClientExists(registerClientDto.Email)) return BadRequest("Email is taken");
+            if (registerClientDto.NIF <= 99999999) { return BadRequest("Invalid NIF provided."); }
 
             using var hmac = new HMACSHA512();
 
             var client = new Client
             {
-                Name = registerDto.Name,
-                Email = registerDto.Email.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key
+                Name = registerClientDto.Name,
+                Email = registerClientDto.Email.ToLower(),
+                NIF = registerClientDto.NIF
             };
 
             _context.Clients.Add(client);
@@ -103,39 +103,9 @@ namespace API.Controllers
                 Id = client.Id,
                 Name = client.Name,
                 Email = client.Email,
-                Token = _tokenService.CreateToken(client)
+                NIF = client.NIF
             };
         }
-
-
-        // LOGIN
-        [HttpPost("login")]
-        public async Task<ActionResult<ClientDto>> Login(LoginDto loginDto)
-        {
-            var client = await _context.Clients.SingleOrDefaultAsync(x => x.Email == loginDto.Email);
-
-            if (client == null) return Unauthorized("Invalid Email");
-
-            using var hmac = new HMACSHA512(client.PasswordSalt);
-
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != client.PasswordHash[i]) return Unauthorized("Invalid Password");
-            }
-
-            var clientDto = new ClientDto
-            {
-                Id = client.Id,
-                Name = client.Name,
-                Email = client.Email,
-                Token = _tokenService.CreateToken(client)
-            };
-
-            return clientDto;
-        }
-
 
 
         // DELETE: api/Clients/'uuid'
