@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 bg-dark text-white">
+      <h2 class="text-center py-4">Dashboard</h2>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/createClient">Register Clients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Client Files</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Sales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Suppliers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Register Employee</a>
+        </li>
+      </ul>
+    </div>
+
+<div class="col-md-9 bg-light">
+  <div class="container py-4">
+    <section class="vh-100 gradient-custom">
+      <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="col-12 col-lg-9 col-xl-7">
+            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+              <div class="card-body p-4 p-md-5">
+                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Register Client</h3>
+                <form>
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="Name">Name</label>
+                        <input type="text" id="Name" name="name" class="form-control form-control-lg" [(ngModel)]="client.name" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="NIF">NIF</label>
+                        <input type="number" id="NIF" name="nif" class="form-control form-control-lg" [(ngModel)]="client.nif" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+                      <div class="form-outline">
+                        <label class="form-label" for="emailAddress">Email</label>
+                        <input type="email" id="emailAddress" name="email" class="form-control form-control-lg" [(ngModel)]="client.email" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4 d-flex align-items-end">
+                      <button class="btn btn-primary btn-lg ml-auto" (click)="registerClient()">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

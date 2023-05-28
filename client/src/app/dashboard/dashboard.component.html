@@ -1,0 +1,99 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 bg-dark text-white">
+      <h2 class="text-center py-4">Dashboard</h2>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/createClient">Register Clients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Client Files</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Sales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Suppliers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Register Employee</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-9 bg-light">
+      <div class="container py-4">
+        <h2 class="mb-4">
+          <ng-container *ngIf="loggedInEmployee">
+            <h1>Hello {{ loggedInEmployee.name }}!</h1>
+          </ng-container>
+        </h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Register Clients</h5>
+                <p class="card-text">Manage your clients and their information.</p>
+                <a routerLink="/createClient" class="btn btn-primary">View Clients</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Client Files</h5>
+                <p class="card-text">See client file and all their buys.</p>
+                <a href="#" class="btn btn-primary">View Client Files</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Products</h5>
+                <p class="card-text">Manage your products and inventory.</p>
+                <a href="#" class="btn btn-primary">View Products</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Sales</h5>
+                <p class="card-text">Analyze your sales.</p>
+                <a href="#" class="btn btn-primary">View Sales</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Suppliers</h5>
+                <p class="card-text">Manage suppliers and their information.</p>
+                <a href="#" class="btn btn-primary">View Suppliers</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Account Settings</h5>
+                <p class="card-text">Update your account settings.</p>
+                <a href="#" class="btn btn-primary">View Account Settings</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
