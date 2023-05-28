@@ -84,6 +84,7 @@ namespace API.Controllers
         public async Task<ActionResult<ClientDto>> Register(RegisterClientDto registerClientDto)
         {
             if (await ClientExists(registerClientDto.Email)) return BadRequest("Email is taken");
+            if (await ClientNifExists(registerClientDto.NIF)) return BadRequest("NIF is taken");
             if (registerClientDto.NIF <= 99999999) { return BadRequest("Invalid NIF provided."); }
 
             using var hmac = new HMACSHA512();
@@ -127,6 +128,11 @@ namespace API.Controllers
         private async Task<bool> ClientExists(string email)
         {
             return await _context.Clients.AnyAsync(x => x.Email == email.ToLower());
+        }
+
+        private async Task<bool> ClientNifExists(int nif)
+        {
+            return await _context.Clients.AnyAsync(x => x.NIF == nif);
         }
 
     }

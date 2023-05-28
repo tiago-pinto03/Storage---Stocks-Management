@@ -21,4 +21,9 @@ export class ClientService {
       })
     );
   }
+
+  getClientFileByNIF(nif: string): Observable<any> {
+    const url = `http://localhost:5000/get/${nif}`;
+    return this.http.get(url);
+  }
 }

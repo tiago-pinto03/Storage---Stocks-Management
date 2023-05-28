@@ -18,6 +18,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateClientComponent } from './create-client/create-client.component';
+import { ClientFileComponent } from './client-file/client-file.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { CreateClientComponent } from './create-client/create-client.component';
     NavComponent,
     HomeComponent,
     DashboardComponent,
-    CreateClientComponent
+    CreateClientComponent,
+    ClientFileComponent
   ],
   imports: [
     BrowserModule,

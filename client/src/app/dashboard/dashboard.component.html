@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3 bg-dark text-white">
-      <h2 class="text-center py-4">Dashboard</h2>
+      <h2 class="text-center py-4" routerLink="/dashboard" style="cursor: pointer;">Dashboard</h2>
       <ul class="nav flex-column">
         <li class="nav-item">
           <a class="nav-link text-white" href="#">Home</a>
@@ -10,7 +10,7 @@
           <a class="nav-link text-white" routerLink="/createClient">Register Clients</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Client Files</a>
+          <a class="nav-link text-white" routerLink="/clientFile">Client Files</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="#">Products</a>
@@ -38,8 +38,8 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Register Clients</h5>
-                <p class="card-text">Manage your clients and their information.</p>
-                <a routerLink="/createClient" class="btn btn-primary">View Clients</a>
+                <p class="card-text">Register a clients and their information.</p>
+                <a routerLink="/createClient" class="btn btn-primary">View Register Clients</a>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@
               <div class="card-body">
                 <h5 class="card-title">Client Files</h5>
                 <p class="card-text">See client file and all their buys.</p>
-                <a href="#" class="btn btn-primary">View Client Files</a>
+                <a routerLink="/clientFile" class="btn btn-primary">View Client Files</a>
               </div>
             </div>
           </div>

@@ -76,5 +76,62 @@ namespace API.Controllers
             return Ok(clientFileDto);
         }
 
+
+        [HttpGet("/get/{nif}")]
+        public async Task<ActionResult<ClientFileDto>> GetSalesByClientNif(int nif)
+        {
+            var sales = await _context.Sales
+                .Include(s => s.Product)
+                .Include(s => s.Client)
+                .Include(s => s.Employee)
+                .Where(d => d.Client.NIF == nif)
+                .ToListAsync();
+
+            var clientNif = await _context.Clients.FirstOrDefaultAsync(x => x.NIF == nif);
+
+            if (clientNif == null)
+            {
+                return BadRequest("Client doesn't exist!");
+            }
+
+            if (sales.Count == 0)
+            {
+                return BadRequest("Client has no buys!");
+            }
+
+            var salesWithoutClientDtos = sales.Select(s => new SalesWithoutClientDto
+            {
+                Id = s.Id,
+                Product = new ProductDto
+                {
+                    Id = s.Product.Id,
+                    Name = s.Product.Name
+                },
+                Quantity = s.Quantity,
+                Price = s.Price,
+                Employee = new PutEmployeeDto
+                {
+                    Id = s.Employee.Id,
+                    Name = s.Employee.Name
+                }
+            }).ToList();
+
+            var clientFileDto = new ClientFileDto
+            {
+                Client = new PutClientDto
+                {
+                    Id = clientNif.Id,
+                    Name = clientNif.Name,
+                    Email = clientNif.Email,
+                    NIF = clientNif.NIF,
+                    Phone = clientNif.Phone
+                },
+                Sales = salesWithoutClientDtos
+            };
+
+            return Ok(clientFileDto);
+        }
+
+
     }
 }
