@@ -2,9 +2,11 @@ using API.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class ClientFileController : BaseApiController
     {
         private readonly DataContext _context;
@@ -130,6 +132,24 @@ namespace API.Controllers
             };
 
             return Ok(clientFileDto);
+        }
+
+        
+        [HttpPut("{nif}")]
+        public async Task<ActionResult<IEnumerable<PutClientDto>>> PutUser(int nif, PutClientDto putClientDto)
+        {
+            var cli = await _context.Clients.SingleOrDefaultAsync(x => x.NIF == putClientDto.NIF);
+
+            if (cli == null) return Unauthorized("Invalid NIF");
+
+            cli.Name = putClientDto.Name;
+            cli.Email = putClientDto.Email;
+            cli.NIF = putClientDto.NIF;
+            cli.Phone = putClientDto.Phone;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
 

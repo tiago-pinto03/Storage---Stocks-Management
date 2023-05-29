@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
 import { ClientService } from '../_services/client.service';
+import { faCoffee, faPager, faPen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-client-file',
   templateUrl: './client-file.component.html',
   styleUrls: ['./client-file.component.css']
 })
-export class ClientFileComponent{
+export class ClientFileComponent {
+  faPen = faPen;
   searchNIF: string = '';
   clientFile: any = null;
+  isEditing: boolean = false;
+  editedClient: any = {};
 
-  constructor(private clientService: ClientService) { }
+  constructor(private clientService: ClientService) {}
 
   searchClientFile(): void {
     this.clientService.getClientFileByNIF(this.searchNIF).subscribe(
@@ -30,6 +34,28 @@ export class ClientFileComponent{
     );
   }
 
+  startEditing(): void {
+    this.isEditing = true;
+    this.editedClient = { ...this.clientFile.client };
+  }
 
+  saveChanges(): void {
+    if (this.clientFile && this.clientFile.client) {
+      const updatedClient = {
+        ...this.clientFile.client,
+        ...this.editedClient
+      };
 
+      this.clientService.updateClient(this.clientFile.client.nif, updatedClient).subscribe(
+        (response: any) => {
+          console.log('Client updated:', response);
+          this.clientFile.client = { ...updatedClient };
+          this.isEditing = false;
+        },
+        (error: any) => {
+          console.log('Error updating client:', error);
+        }
+      );
+    }
+  }
 }

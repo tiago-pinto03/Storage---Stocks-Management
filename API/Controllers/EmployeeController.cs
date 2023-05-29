@@ -4,6 +4,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/Employee
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
@@ -36,6 +38,7 @@ namespace API.Controllers
         }
 
         // GET: api/Employee/'uuid'
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<PutEmployeeDto>> GetEmployeeById(Guid id)
         {
@@ -58,6 +61,7 @@ namespace API.Controllers
         }
 
         // PUT: api/Employee/'uuid'
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<IEnumerable<PutEmployeeDto>>> PutUser(Guid id, PutEmployeeDto putEmployeeDto)
         {
@@ -77,6 +81,7 @@ namespace API.Controllers
 
 
         // Register: api/Employee/register
+        [Authorize]
         [HttpPost("register")]
         public async Task<ActionResult<EmployeeDto>> Register(RegisterDto registerDto)
         {
@@ -136,6 +141,7 @@ namespace API.Controllers
 
 
         // DELETE: api/Employee/'uuid'
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(Guid id)
         {

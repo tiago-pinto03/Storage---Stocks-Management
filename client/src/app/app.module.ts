@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateClientComponent } from './create-client/create-client.component';
 import { ClientFileComponent } from './client-file/client-file.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ClientFileComponent } from './client-file/client-file.component';
   ],
   imports: [
     BrowserModule,
+    FontAwesomeModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,

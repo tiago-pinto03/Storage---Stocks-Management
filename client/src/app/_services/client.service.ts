@@ -26,4 +26,14 @@ export class ClientService {
     const url = `http://localhost:5000/get/${nif}`;
     return this.http.get(url);
   }
+
+  updateClient(nif: string, client: Client): Observable<any> {
+    const updateUrl = `http://localhost:5000/api/ClientFile/${nif}`;
+    return this.http.put(updateUrl, client).pipe(
+      catchError((error) => {
+        console.log('Error:', error);
+        return throwError(error);
+      })
+    );
+  }
 }
