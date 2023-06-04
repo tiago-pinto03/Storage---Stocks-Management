@@ -20,6 +20,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateClientComponent } from './create-client/create-client.component';
 import { ClientFileComponent } from './client-file/client-file.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProductsComponent } from './products/products.component';
+import { SupplierComponent } from './supplier/supplier.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HomeComponent,
     DashboardComponent,
     CreateClientComponent,
-    ClientFileComponent
+    ClientFileComponent,
+    ProductsComponent,
+    SupplierComponent
   ],
   imports: [
     BrowserModule,

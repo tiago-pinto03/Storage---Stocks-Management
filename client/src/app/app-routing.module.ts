@@ -6,14 +6,18 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './_guard/auth.guard';
 import { CreateClientComponent } from './create-client/create-client.component';
 import { ClientFileComponent } from './client-file/client-file.component';
+import { ProductsComponent } from './products/products.component';
+import { SupplierComponent } from './supplier/supplier.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'createClient', component: CreateClientComponent, canActivate: [AuthGuard] },
   { path: 'clientFile', component: ClientFileComponent, canActivate: [AuthGuard] },
-  {path: '**', component: HomeComponent, pathMatch: "full"},
+  { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
+  { path: 'suppliers', component: SupplierComponent, canActivate: [AuthGuard] },
+  { path: '**', component: HomeComponent, pathMatch: "full" },
 ];
 
 @NgModule({

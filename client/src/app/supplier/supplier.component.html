@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 bg-dark text-white">
+      <h2 class="text-center py-4" routerLink="/dashboard" style="cursor: pointer">Dashboard</h2>
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link text-white" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/createClient">Register Clients</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/clientFile">Client Files</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/products">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Sales</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Suppliers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Register Employee</a>
+          </li>
+        </ul>
+    </div>
+
+    <div class="col-md-9 bg-light">
+      <div class="card col-md-10 ms-5 mt-5">
+        <div class="card-header">
+          Fornecedores
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let supplier of suppliers">
+                <td>{{ supplier.id }}</td>
+                <td>
+                  <ng-container *ngIf="!supplier.editMode; else editSupplierName">
+                    {{ supplier.name }}
+                  </ng-container>
+                  <ng-template #editSupplierName>
+                    <input [(ngModel)]="supplier.name" class="form-control" />
+                  </ng-template>
+                </td>
+                <td>
+                  <ng-container *ngIf="!supplier.editMode; else editButtons">
+                    <button class="btn btn-primary" (click)="toggleEditMode(supplier)">Editar</button>
+                  </ng-container>
+                  <ng-template #editButtons>
+                    <button class="btn btn-success me-1" (click)="saveSupplier(supplier)">Salvar</button>
+                    <button class="btn btn-danger" (click)="cancelEdit(supplier)">Cancelar</button>
+                  </ng-template>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>

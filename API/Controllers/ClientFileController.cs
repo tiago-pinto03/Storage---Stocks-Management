@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ClientFileController : BaseApiController
     {
         private readonly DataContext _context;

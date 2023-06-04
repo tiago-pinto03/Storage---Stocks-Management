@@ -12,13 +12,13 @@
             <a class="nav-link text-white" href="#">Client Files</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Products</a>
+            <a class="nav-link text-white" routerLink="/products">Products</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="#">Sales</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Suppliers</a>
+            <a class="nav-link text-white" routerLink="/suppliers">Suppliers</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="#">Register Employee</a>
@@ -85,6 +85,7 @@
                           <p><strong>Price:</strong> {{ sale.price }}</p>
                           <p><strong>Quantity:</strong> {{ sale.quantity }}</p>
                           <p><strong>Employee:</strong> {{ sale.employee.name }}</p>
+                          <br>
                         </li>
                       </ul>
                     </div>
