@@ -9,6 +9,7 @@ import { SupplierService } from '../_services/supplier.service';
 })
 export class SupplierComponent implements OnInit {
   suppliers: Supplier[] = [];
+  newSupplier: Supplier = {};
 
   constructor(private supplierService: SupplierService) { }
 
@@ -28,7 +29,7 @@ export class SupplierComponent implements OnInit {
   }
 
   editSupplier(id: string): void {
-    const updatedSupplier: Supplier = { };
+    const updatedSupplier: Supplier = {};
 
     this.supplierService.editSupplier(id, updatedSupplier).subscribe(
       (response) => {
@@ -58,7 +59,35 @@ export class SupplierComponent implements OnInit {
     );
   }
 
+  createSupplier(): void {
+    this.supplierService.createSupplier(this.newSupplier).subscribe(
+      (response) => {
+        console.log('Supplier created successfully:', response);
+        this.loadSuppliers();
+        this.newSupplier = {};
+      },
+      (error) => {
+        console.log('Error creating supplier:', error);
+      }
+    );
+  }
 
+
+  deleteSupplier(id: string | undefined): void {
+    if (id) {
+      if (confirm('Are you sure you want to delete this supplier?')) {
+        this.supplierService.deleteSupplier(id).subscribe(
+          () => {
+            console.log('Supplier deleted successfully');
+            this.loadSuppliers();
+          },
+          (error) => {
+            console.log('Error deleting supplier:', error);
+          }
+        );
+      }
+    }
+  }
 
   cancelEdit(supplier: Supplier): void {
     supplier.editMode = false;

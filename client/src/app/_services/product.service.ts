@@ -19,26 +19,6 @@ export class ProductService {
     return this.http.get<Product[]>(this.baseUrl);
   }
 
-  getProduct2(id: string): Observable<Product> {
-    const url = `${this.baseUrl}/${id}`;
-    return this.http.get<Product>(url).pipe(
-      catchError((error) => {
-        console.log('Error retrieving product:', error);
-        return throwError(error);
-      })
-    );
-  }
-
-  oldUpdateProduct(id?: string, product?: Product): Observable<any> {
-    const updateUrl = `${this.baseUrl}/${id}`;
-    return this.http.put(updateUrl, product).pipe(
-      catchError((error) => {
-        console.log('Error:', error);
-        return throwError(error);
-      })
-    );
-  }
-
   addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(this.baseUrl, product).pipe(
       catchError((error) => {
@@ -54,5 +34,9 @@ export class ProductService {
     return this.http.put(url, product, { headers });
   }
 
+  deleteProduct(productId: string): Observable<void> {
+    const url = `${this.baseUrl}/${productId}`;
+    return this.http.delete<void>(url);
+  }
 
 }

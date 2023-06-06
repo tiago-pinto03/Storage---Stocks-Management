@@ -58,7 +58,7 @@ export class ProductsComponent implements OnInit {
   }
 
   updateProduct() {
-    this.productService.updateProduct(this.product)
+    this.productService.updateProduct(this.editedProduct)
       .subscribe(
         () => {
           this.updateSuccess = true;
@@ -69,31 +69,18 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  /* updateProduct(product: Product): void {
-    if (this.selectedProduct && this.selectedProduct.id) {
-      this.selectedProduct.name = this.editedProduct.name;
-      this.selectedProduct.unitPrice = this.editedProduct.unitPrice;
-      this.selectedProduct.quantity = this.editedProduct.quantity;
-      this.selectedProduct.available = this.editedProduct.available;
-
-      this.productService.updateProduct(this.selectedProduct.id, this.selectedProduct).subscribe(
-        (updatedProduct) => {
-          const index = this.products.findIndex(p => p.id === updatedProduct.id);
-          if (index !== -1) {
-            this.products[index] = updatedProduct;
-          }
-          this.selectedProduct = null;
-        },
-        (error) => {
-          console.log('Error updating product:', error);
-        }
-      );
+  updateSupplierId(supplierId: string): void {
+    if (!this.newProduct.supplier) {
+      this.newProduct.supplier = {};
     }
-  } */
+    this.newProduct.supplier.id = supplierId;
+  }
+
 
   cancelEdit(): void {
     this.selectedProduct = null;
   }
+
 
   addProduct(): void {
     this.productService.addProduct(this.newProduct).subscribe(
@@ -107,7 +94,21 @@ export class ProductsComponent implements OnInit {
     );
   }
 
-
-
+  deleteProduct(productId: string | undefined) {
+    if (!productId) {
+      return;
+    }
+    if (confirm('Deseja excluir o produto?')) {
+      this.productService.deleteProduct(productId)
+        .subscribe(
+          () => {
+            this.showEditProducts = false;
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+    }
+  }
 
 }

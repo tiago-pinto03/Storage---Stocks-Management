@@ -25,4 +25,24 @@ export class SupplierService {
       })
     );
   }
+
+  createSupplier(newSupplier: Supplier): Observable<Supplier> {
+    return this.http.post<Supplier>(this.baseUrl, newSupplier).pipe(
+      catchError((error) => {
+        console.log('Error:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  deleteSupplier(id: string): Observable<void> {
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.delete<void>(url).pipe(
+      catchError((error) => {
+        console.log('Error:', error);
+        return throwError(error);
+      })
+    );
+  }
+
 }

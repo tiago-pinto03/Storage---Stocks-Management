@@ -53,7 +53,8 @@
                 </td>
                 <td>
                   <ng-container *ngIf="!supplier.editMode; else editButtons">
-                    <button class="btn btn-primary" (click)="toggleEditMode(supplier)">Editar</button>
+                    <button class="btn btn-primary me-1" (click)="toggleEditMode(supplier)">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteSupplier(supplier.id)">Excluir</button>
                   </ng-container>
                   <ng-template #editButtons>
                     <button class="btn btn-success me-1" (click)="saveSupplier(supplier)">Salvar</button>
@@ -63,11 +64,15 @@
               </tr>
             </tbody>
           </table>
+          <form (submit)="createSupplier()">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" class="form-control" [(ngModel)]="newSupplier.name" name="name" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Create Supplier</button>
+          </form>
         </div>
       </div>
     </div>
-
-
-
   </div>
 </div>
