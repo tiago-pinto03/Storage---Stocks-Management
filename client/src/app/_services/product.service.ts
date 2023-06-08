@@ -20,6 +20,7 @@ export class ProductService {
   }
 
   addProduct(product: Product): Observable<Product> {
+    debugger
     return this.http.post<Product>(this.baseUrl, product).pipe(
       catchError((error) => {
         console.log('Error adding product:', error);
@@ -30,6 +31,7 @@ export class ProductService {
 
   updateProduct(product: any) {
     const url = `${this.baseUrl}/${product.id}`;
+    debugger
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.put(url, product, { headers });
   }

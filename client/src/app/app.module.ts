@@ -22,6 +22,7 @@ import { ClientFileComponent } from './client-file/client-file.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductsComponent } from './products/products.component';
 import { SupplierComponent } from './supplier/supplier.component';
+import { SalesComponent } from './sales/sales.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { SupplierComponent } from './supplier/supplier.component';
     CreateClientComponent,
     ClientFileComponent,
     ProductsComponent,
-    SupplierComponent
+    SupplierComponent,
+    SalesComponent
   ],
   imports: [
     BrowserModule,

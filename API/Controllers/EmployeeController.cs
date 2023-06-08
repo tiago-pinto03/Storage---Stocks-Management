@@ -22,7 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/Employee
-        [Authorize]
+        /* [Authorize] */
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {

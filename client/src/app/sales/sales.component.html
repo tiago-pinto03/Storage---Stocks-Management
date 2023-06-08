@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 col-12 bg-dark text-white" style="height: 100vh;">
+      <h2 class="text-center py-4" routerLink="/dashboard" style="cursor: pointer;">Dashboard</h2>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/createClient">Register Clients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/clientFile">Client Files</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/products">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/products">Sales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/suppliers">Suppliers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Register Employee</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-9 col-12 bg-light">
+      <div class="container py-4">
+        <h2 class="mb-4">Vendas</h2>
+        <div class="row">
+          <div class="mt-3 mb-3">
+            <button class="btn btn-primary" (click)="showAddSale = true">Add Sale</button>
+          </div>
+          <div class="card mb-3" *ngIf="showAddSale">
+            <div class="card-body">
+              <h5 class="card-title">Adicionar Venda</h5>
+              <input [(ngModel)]="newSale.price" type="text" class="form-control mb-1" placeholder="Preco Venda">
+              <input [(ngModel)]="newSale.quantity" type="text" class="form-control mb-1" placeholder="Quantidade produtos">
+              <input [(ngModel)]="newSale.product!.id" type="text" class="form-control mb-1" placeholder="ID Produto">
+              <input [(ngModel)]="newSale.client!.id" type="text" class="form-control mb-1" placeholder="ID Cliente">
+              <input [(ngModel)]="newSale.employee!.id" type="text" class="form-control mb-1" placeholder="ID Funcionario">
+              <div class="mt-2">
+                <button class="btn btn-success" (click)="addSale()">Add</button>
+                <button class="btn btn-secondary ms-2" (click)="cancelAdd()">Cancel</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" *ngFor="let sale of sales">
+            <div class="card mb-3">
+              <div class="card-body">
+                <ng-container *ngIf="!showEditSales || editedSale.id !== sale.id">
+                  <p class="card-text">ID Venda: {{ sale.id }}</p>
+                  <p class="card-text">Preco Venda: {{ sale.price }}</p>
+                  <p class="card-text">Quantidade Produtos: {{ sale.quantity }}</p>
+                  <p class="card-text">Nome Produto: {{ sale.product?.name }}</p>
+                  <p class="card-text">Nome Cliente: {{ sale.client?.name }}</p>
+                  <p class="card-text">Nome Funcionario: {{ sale.employee?.name }}</p>
+                </ng-container>
+                <ng-container *ngIf="showEditSales && editedSale.id === sale?.id">
+                  <input [(ngModel)]="editedSale.id" type="text" class="form-control">
+                  <input [(ngModel)]="editedSale.price" type="text" class="form-control">
+                  <input [(ngModel)]="editedSale.quantity" type="text" class="form-control">
+                  <input [(ngModel)]="editedSale.product!.id" type="text" class="form-control">
+                  <input [(ngModel)]="editedSale.client!.id" type="text" class="form-control">
+                  <input [(ngModel)]="editedSale.employee!.id" type="text" class="form-control">
+                  <div class="mt-2">
+                    <button class="btn btn-success" (click)="updateSales()">Save</button>
+                    <button class="btn btn-secondary ms-2" (click)="cancelEdit()">Cancel</button>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="card-footer">
+                <button *ngIf="!showEditSales" class="btn btn-primary" (click)="onEditClick(sale)">Edit</button>
+                <button class="btn btn-danger ms-1" (click)="deleteSales(sale.id)">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+

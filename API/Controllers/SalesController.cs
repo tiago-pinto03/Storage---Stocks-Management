@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Authorize]
+    /* [Authorize] */
     public class SalesController : BaseApiController
     {
         private readonly DataContext _context;
@@ -32,10 +32,24 @@ namespace API.Controllers
                 Id = s.Id,
                 Price = s.Price,
                 Quantity = s.Quantity,
-                ProductId = s.Product.Id,
-                ClientId = s.Client.Id,
-                EmployeeId = s.Employee.Id
+                Product = new ProductDto
+                {
+                    Id = s.Product.Id,
+                    Name = s.Product.Name
+                },
+                Client = new ClientDto
+                {
+                    Id = s.Client.Id,
+                    Name = s.Client.Name,
+                    NIF = s.Client.NIF
+                },
+                Employee = new PutEmployeeDto
+                {
+                    Id = s.Employee.Id,
+                    Name = s.Employee.Name
+                }
             }).ToList();
+
 
             return Ok(salesDtoList);
         }
@@ -44,37 +58,51 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<SalesDto>> GetSalesById(Guid id)
         {
-            var sales = await _context.Sales
+            var sale = await _context.Sales
                 .Include(s => s.Product)
                 .Include(s => s.Client)
                 .Include(s => s.Employee)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
-            if (sales == null)
+            if (sale == null)
             {
                 return NotFound();
             }
 
             var salesDto = new SalesDto
             {
-                Id = sales.Id,
-                Price = sales.Price,
-                Quantity = sales.Quantity,
-                ProductId = sales.Product.Id,
-                ClientId = sales.Client.Id,
-                EmployeeId = sales.Employee.Id
+                Id = sale.Id,
+                Price = sale.Price,
+                Quantity = sale.Quantity,
+                Product = new ProductDto
+                {
+                    Id = sale.Product.Id,
+                    Name = sale.Product.Name
+                },
+                Client = new ClientDto
+                {
+                    Id = sale.Client.Id,
+                    Name = sale.Client.Name,
+                    NIF = sale.Client.NIF
+                },
+                Employee = new PutEmployeeDto
+                {
+                    Id = sale.Employee.Id,
+                    Name = sale.Employee.Name
+                }
             };
 
             return Ok(salesDto);
         }
 
+
         // POST: api/sales
         [HttpPost]
         public async Task<ActionResult<SalesDto>> CreateSales(SalesDto salesCreateDto)
         {
-            var product = await _context.Products.FindAsync(salesCreateDto.ProductId);
-            var client = await _context.Clients.FindAsync(salesCreateDto.ClientId);
-            var employee = await _context.Employees.FindAsync(salesCreateDto.EmployeeId);
+            var product = await _context.Products.FindAsync(salesCreateDto.Product.Id);
+            var client = await _context.Clients.FindAsync(salesCreateDto.Client.Id);
+            var employee = await _context.Employees.FindAsync(salesCreateDto.Employee.Id);
 
             if (product == null || client == null || employee == null)
             {
@@ -94,8 +122,8 @@ namespace API.Controllers
             product.Quantity -= salesCreateDto.Quantity;
             salesCreateDto.Price = product.UnitPrice * salesCreateDto.Quantity;
 
-            if(product.Quantity == 0)
-            {product.Available = false;}
+            if (product.Quantity == 0)
+            { product.Available = false; }
 
             var sales = new Sales
             {
@@ -114,9 +142,23 @@ namespace API.Controllers
                 Id = sales.Id,
                 Price = sales.Price,
                 Quantity = sales.Quantity,
-                ProductId = sales.Product.Id,
-                ClientId = sales.Client.Id,
-                EmployeeId = sales.Employee.Id
+                Product = new ProductDto
+                {
+                    Id = product.Id,
+                    Name = product.Name
+                },
+                Client = new ClientDto
+                {
+                    Id = client.Id,
+                    Name = client.Name,
+                    NIF = client.NIF
+                },
+                Employee = new PutEmployeeDto
+                {
+                    Id = employee.Id,
+                    Name = employee.Name,
+                    Email = employee.Name
+                }
             };
 
             return CreatedAtAction(nameof(GetSalesById), new { id = sales.Id }, createdDto);
@@ -124,10 +166,12 @@ namespace API.Controllers
 
         // PUT: api/sales/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSales(Guid id, SalesDto salesUpdateDto)
+        public async Task<ActionResult<SalesDto>> UpdateSales(Guid id, SalesDto salesUpdateDto)
         {
             var sales = await _context.Sales
                 .Include(s => s.Product)
+                .Include(s => s.Client)
+                .Include(s => s.Employee)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (sales == null)
@@ -135,9 +179,9 @@ namespace API.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(salesUpdateDto.ProductId);
-            var client = await _context.Clients.FindAsync(salesUpdateDto.ClientId);
-            var employee = await _context.Employees.FindAsync(salesUpdateDto.EmployeeId);
+            var product = await _context.Products.FindAsync(salesUpdateDto.Product.Id);
+            var client = await _context.Clients.FindAsync(salesUpdateDto.Client.Id);
+            var employee = await _context.Employees.FindAsync(salesUpdateDto.Employee.Id);
 
             if (product == null || client == null || employee == null)
             {
@@ -154,21 +198,49 @@ namespace API.Controllers
                 return BadRequest("Insufficient quantity of the product");
             }
 
+            product.Quantity -= salesUpdateDto.Quantity;
+            salesUpdateDto.Price = product.UnitPrice * salesUpdateDto.Quantity;
+
+            if (product.Quantity == 0)
+            {
+                product.Available = false;
+            }
+
             sales.Price = salesUpdateDto.Price;
             sales.Quantity = salesUpdateDto.Quantity;
             sales.Product = product;
             sales.Client = client;
             sales.Employee = employee;
 
-            if (sales.Price <= 0)
-            {
-                return BadRequest("Invalid Price");
-            }
-
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            var updatedDto = new SalesDto
+            {
+                Id = sales.Id,
+                Price = sales.Price,
+                Quantity = sales.Quantity,
+                Product = new ProductDto
+                {
+                    Id = product.Id,
+                    Name = product.Name
+                },
+                Client = new ClientDto
+                {
+                    Id = client.Id,
+                    Name = client.Name,
+                    NIF = client.NIF
+                },
+                Employee = new PutEmployeeDto
+                {
+                    Id = employee.Id,
+                    Name = employee.Name,
+                    Email = employee.Name
+                }
+            };
+
+            return Ok(updatedDto);
         }
+
 
 
         // DELETE: api/sales/{id}

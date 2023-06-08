@@ -8,6 +8,7 @@ import { CreateClientComponent } from './create-client/create-client.component';
 import { ClientFileComponent } from './client-file/client-file.component';
 import { ProductsComponent } from './products/products.component';
 import { SupplierComponent } from './supplier/supplier.component';
+import { SalesComponent } from './sales/sales.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'clientFile', component: ClientFileComponent, canActivate: [AuthGuard] },
   { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
   { path: 'suppliers', component: SupplierComponent, canActivate: [AuthGuard] },
+  { path: 'sales', component: SalesComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomeComponent, pathMatch: "full" },
 ];
 

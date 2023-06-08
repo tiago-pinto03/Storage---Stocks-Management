@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-3 bg-dark text-white">
+    <div class="col-md-3 col-12 bg-dark text-white" style="height: 100vh;">
       <h2 class="text-center py-4" routerLink="/dashboard" style="cursor: pointer;">Dashboard</h2>
       <ul class="nav flex-column">
         <li class="nav-item">
@@ -16,7 +16,7 @@
           <a class="nav-link text-white" routerLink="/products">Products</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Sales</a>
+          <a class="nav-link text-white" routerLink="/products">Sales</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" routerLink="/suppliers">Suppliers</a>
@@ -26,7 +26,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-9 bg-light">
+    <div class="col-md-9 col-12 bg-light">
       <div class="container py-4">
         <h2 class="mb-4">
           <ng-container *ngIf="loggedInEmployee">
@@ -68,7 +68,7 @@
               <div class="card-body">
                 <h5 class="card-title">Sales</h5>
                 <p class="card-text">Analyze your sales.</p>
-                <a href="#" class="btn btn-primary">View Sales</a>
+                <a routerLink="/sales" class="btn btn-primary">View Sales</a>
               </div>
             </div>
           </div>
