@@ -37,21 +37,14 @@
           <div class="card mb-3" *ngIf="showAddSale">
             <div class="card-body">
               <h5 class="card-title">Adicionar Venda</h5>
-              <!-- <label>Preco Venda</label>
-              <input [(ngModel)]="newSale.price" type="text" class="form-control mb-1" placeholder="Preco sera ajustado"> -->
-
               <label>Quantidade Produtos</label>
               <input [(ngModel)]="newSale.quantity" type="text" class="form-control mb-1">
-
               <label for="saleProduct">ID Produto</label>
               <input type="text" class="form-control" id="saleProduct" [ngModel]="newSale.product?.id" (ngModelChange)="updateProductId($event)" name="saleProduct">
-
               <label for="saleClient">ID Cliente</label>
               <input type="text" class="form-control" id="saleClient" [ngModel]="newSale.client?.id" (ngModelChange)="updateClientId($event)" name="saleClient">
-
               <label for="saleEmployee">ID Empregado</label>
               <input type="text" class="form-control" id="saleEmployee" [ngModel]="newSale.employee?.id" (ngModelChange)="updateEmployeeId($event)" name="saleEmployee">
-
               <div class="mt-2">
                 <button class="btn btn-success" (click)="addSale()">Adicionar</button>
                 <button class="btn btn-secondary ms-2" (click)="cancelAdd()">Cancelar</button>

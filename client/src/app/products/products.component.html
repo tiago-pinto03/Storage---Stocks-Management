@@ -85,11 +85,11 @@
                         </div>
                         <div class="form-group">
                           <label for="quantity">Fornecedor</label>
-                          <input type="text" class="form-control" id="supplier" [ngModel]="newProduct.supplier?.id" (ngModelChange)="updateSupplierId($event)" name="supplier">
+                          <input type="text" class="form-control" id="supplier" [ngModel]="newProduct.supplier?.id" (ngModelChange)="updateSupplierId($event)" name="supplier" placeholder="ID Fornecedor">
                         </div>
-                        <button class="btn btn-primary" (click)="updateProduct()">Salvar</button>
-                        <button class="btn btn-secondary" (click)="cancelEdit()">Cancelar</button>
-                        <button class="btn btn-danger" (click)="deleteProduct(product.id)">Excluir</button>
+                        <button class="btn btn-primary mt-1 me-1" (click)="updateProduct()">Salvar</button>
+                        <button class="btn btn-secondary mt-1 me-1" (click)="cancelEdit()">Cancelar</button>
+                        <button class="btn btn-danger mt-1" (click)="deleteProduct(product.id)">Excluir</button>
                       </form>
                     </div>
                     <ng-template #showLabel>
@@ -97,7 +97,7 @@
                       <p><strong>Preco Unitario: </strong>{{ product.unitPrice }}</p>
                       <p><strong>Quantidade: </strong>{{ product.quantity }}</p>
                       <p><strong>Disponivel: </strong>{{ product.available ? 'Sim' : 'Não' }}</p>
-                      <p><strong>Fornecedor: </strong>{{ product.supplier?.id }}</p>
+                      <p><strong>Fornecedor: </strong>{{ product.supplier?.name }}</p>
                       <button class="btn btn-primary" (click)="editProduct(product)">Editar</button>
                     </ng-template>
                   </li>

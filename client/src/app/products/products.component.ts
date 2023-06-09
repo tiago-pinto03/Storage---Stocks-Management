@@ -64,6 +64,7 @@ export class ProductsComponent implements OnInit {
       .subscribe(
         () => {
           this.updateSuccess = true;
+          location.reload();
         },
         (error) => {
           console.error(error);
@@ -73,10 +74,10 @@ export class ProductsComponent implements OnInit {
   }
 
   updateSupplierId(supplierId: string): void {
-    if (!this.newProduct.supplier) {
-      this.newProduct.supplier = {};
+    if (!this.editedProduct.supplier) {
+      this.editedProduct.supplier = {};
     }
-    this.newProduct.supplier.id = supplierId;
+    this.editedProduct.supplier.id = supplierId;
   }
 
 

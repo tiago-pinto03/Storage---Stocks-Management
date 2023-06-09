@@ -193,13 +193,18 @@ namespace API.Controllers
                 return BadRequest("Invalid Quantity");
             }
 
-            if (salesUpdateDto.Quantity > product.Quantity)
+            if (salesUpdateDto.Quantity > sales.Quantity)
             {
-                return BadRequest("Insufficient quantity of the product");
-            }
+                var quantityDifference = salesUpdateDto.Quantity - sales.Quantity;
 
-            product.Quantity -= salesUpdateDto.Quantity;
-            salesUpdateDto.Price = product.UnitPrice * salesUpdateDto.Quantity;
+                if (quantityDifference > product.Quantity)
+                {
+                    return BadRequest("Insufficient quantity of the product");
+                }
+
+                product.Quantity -= quantityDifference;
+                salesUpdateDto.Price = product.UnitPrice * salesUpdateDto.Quantity;
+            }
 
             if (product.Quantity == 0)
             {
@@ -240,7 +245,6 @@ namespace API.Controllers
 
             return Ok(updatedDto);
         }
-
 
 
         // DELETE: api/sales/{id}
