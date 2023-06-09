@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Supplier } from '../_models/supplier';
 import { SupplierService } from '../_services/supplier.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-suppliers',
@@ -11,7 +12,7 @@ export class SupplierComponent implements OnInit {
   suppliers: Supplier[] = [];
   newSupplier: Supplier = {};
 
-  constructor(private supplierService: SupplierService) { }
+  constructor(private supplierService: SupplierService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadSuppliers();
@@ -24,6 +25,7 @@ export class SupplierComponent implements OnInit {
       },
       (error) => {
         console.log('Error retrieving suppliers:', error);
+        this.toastr.error('Erro ao carregar Fornecedores!', error);
       }
     );
   }
@@ -38,6 +40,7 @@ export class SupplierComponent implements OnInit {
       },
       (error) => {
         console.log('Error updating supplier:', error);
+        this.toastr.error('Erro ao atualizar Fornecedor!', error);
       }
     );
   }
@@ -55,6 +58,7 @@ export class SupplierComponent implements OnInit {
       },
       (error) => {
         console.log('Error saving supplier:', error);
+        this.toastr.error('Erro ao guardar Fornecedor!', error);
       }
     );
   }

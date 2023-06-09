@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { Employee } from '../_models/employee';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,7 @@ export class DashboardComponent implements OnInit {
   loggedInEmployee: Employee | null = null;
   employees: Employee[] = [];
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.authService.getLoggedInEmployee().subscribe(
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
       },
       (error) => {
         console.log('Error:', error);
+        this.toastr.error('Erro!', error);
       }
     );
   }

@@ -16,6 +16,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateClientComponent } from './create-client/create-client.component';
 import { ClientFileComponent } from './client-file/client-file.component';
@@ -53,7 +54,10 @@ import { SalesComponent } from './sales/sales.component';
     TypeaheadModule.forRoot(),
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
-
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

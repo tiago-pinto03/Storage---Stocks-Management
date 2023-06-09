@@ -34,7 +34,7 @@
           <div class="col-12 col-lg-9 col-xl-7">
             <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
               <div class="card-body p-4 p-md-5">
-                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Search Client NIF</h3>
+                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Procurar Cliente por NIF</h3>
                 <form (ngSubmit)="searchClientFile()">
                   <div class="row">
                     <div class="col-md-8 mb-4">
@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-md-4 mb-4">
                       <div class="form-outline">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Search</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Procurar</button>
                       </div>
                     </div>
                   </div>
@@ -57,9 +57,9 @@
                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">
                   <span class="float-end">
                     <fa-icon *ngIf="!isEditing && clientFile" [icon]="faPen" class="text-primary" (click)="startEditing()" style="cursor: pointer;"></fa-icon>
-                    <button *ngIf="isEditing" class="btn btn-primary" (click)="saveChanges()">Save Changes</button>
+                    <button *ngIf="isEditing" class="btn btn-primary" (click)="saveChanges()">Guardar Alteracoes</button>
                   </span>
-                  Client Details:
+                  Detalhes do Cliente:
                 </h3>
                 <div *ngIf="clientFile">
                   <div class="card mb-4">
@@ -76,7 +76,7 @@
                       </p>
                     </div>
                   </div>
-                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Bought:</h3>
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Compras Anteriores:</h3>
                   <div class="card">
                     <div class="card-body">
                       <ul>
@@ -92,7 +92,7 @@
                   </div>
                 </div>
                 <div *ngIf="!clientFile">
-                  <p>No client file found.</p>
+                  <p>Nenhum Cliente Encontrado.</p>
                 </div>
               </div>
             </div>

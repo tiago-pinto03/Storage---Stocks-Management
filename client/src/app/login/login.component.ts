@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { Employee } from '../_models/employee';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -12,17 +13,17 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {}
 
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe(
       (user: Employee) => {
-        console.log('Logged in:', user);
         this.authService.setLoggedIn(true);
         this.router.navigate(['/dashboard']);
+        this.toastr.success('Login successful!');
       },
       (error) => {
-        console.log('Login failed:', error);
+        this.toastr.error('Login Failed!', error);
       }
     );
   }

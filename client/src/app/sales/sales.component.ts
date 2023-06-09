@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Sales } from '../_models/sales';
 import { SalesService } from '../_services/sales.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sales',
@@ -15,7 +16,7 @@ export class SalesComponent implements OnInit {
   showAddSale = false;
   newSale: Partial<Sales> = {};
 
-  constructor(private salesService: SalesService) { }
+  constructor(private salesService: SalesService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getSales();
@@ -26,6 +27,10 @@ export class SalesComponent implements OnInit {
       .subscribe(
         sales => {
           this.sales = sales;
+        },
+        (error) => {
+          console.error(error);
+          this.toastr.error('Erro ao carregar vendas!', error);
         }
       );
   }
@@ -40,6 +45,7 @@ export class SalesComponent implements OnInit {
         },
         (error) => {
           console.error(error);
+          this.toastr.error('Erro ao atualizar venda!', error);
         }
       );
   }
@@ -61,6 +67,7 @@ export class SalesComponent implements OnInit {
           },
           (error) => {
             console.error(error);
+            this.toastr.error('Erro ao excluir venda!', error);
           }
         );
     }
@@ -71,14 +78,41 @@ export class SalesComponent implements OnInit {
     this.editedSale = { ...sale };
   }
 
-  addSale() {
-    if (this.newSale) {
-      this.salesService.addSale(this.newSale).subscribe(() => {
-        this.getSales();
-        this.cancelAdd();
-      });
+  updateProductId(productId: string): void {
+    if (!this.newSale.product) {
+      this.newSale.product = {};
     }
+    this.newSale.product.id = productId;
   }
+
+  updateClientId(clientId: string): void {
+    if (!this.newSale.client) {
+      this.newSale.client = {name: '', nif: 0, email: ''};
+    }
+    this.newSale.client.id = clientId;
+  }
+
+  updateEmployeeId(employeeId: string): void {
+    if (!this.newSale.employee) {
+      this.newSale.employee = {token:''};
+    }
+    this.newSale.employee.id = employeeId;
+  }
+
+
+  addSale(): void {
+    this.salesService.addSale(this.newSale).subscribe(
+      (addedSale) => {
+        this.sales.push(addedSale);
+        this.newSale = {};
+      },
+      (error) => {
+        console.log('Error adding sale:', error);
+        this.toastr.error('Erro ao adicionar venda!', error);
+      }
+    );
+  }
+
 
   cancelAdd() {
     this.showAddSale = false;

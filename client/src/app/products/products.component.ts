@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../_models/product';
 import { ProductService } from '../_services/product.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-products',
@@ -19,7 +20,7 @@ export class ProductsComponent implements OnInit {
   showAddProductForm: boolean = false;
   updateSuccess: boolean = false;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadProducts();
@@ -32,6 +33,7 @@ export class ProductsComponent implements OnInit {
       },
       (error) => {
         console.log('Error retrieving products:', error);
+        this.toastr.error('Erro ao carregar produtos!', error);
       }
     );
   }
@@ -65,6 +67,7 @@ export class ProductsComponent implements OnInit {
         },
         (error) => {
           console.error(error);
+          this.toastr.error('Erro ao atualizar produto!', error);
         }
       );
   }
@@ -90,6 +93,7 @@ export class ProductsComponent implements OnInit {
       },
       (error) => {
         console.log('Error adding product:', error);
+        this.toastr.error('Erro ao adicionar produto!', error);
       }
     );
   }
@@ -106,6 +110,7 @@ export class ProductsComponent implements OnInit {
           },
           (error) => {
             console.error(error);
+            this.toastr.error('Erro ao excluir produto!', error);
           }
         );
     }

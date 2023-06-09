@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ClientService } from '../_services/client.service';
 import { faCoffee, faPager, faPen } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-client-file',
@@ -14,7 +15,7 @@ export class ClientFileComponent {
   isEditing: boolean = false;
   editedClient: any = {};
 
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService, private toastr: ToastrService) {}
 
   searchClientFile(): void {
     this.clientService.getClientFileByNIF(this.searchNIF).subscribe(
@@ -22,14 +23,16 @@ export class ClientFileComponent {
         console.log('Response:', response);
         if (response) {
           this.clientFile = response;
-          console.log('Client file retrieved:', response);
+          this.toastr.success('Cliente encontrado!');
         } else {
           this.clientFile = null;
           console.log('Client file not found.');
+          this.toastr.error('Cliente nao encontrado!');
         }
       },
       (error) => {
         console.log('Error retrieving client file:', error);
+        this.toastr.error('Erro ao mostrar ficha cliente!');
       }
     );
   }
@@ -49,11 +52,13 @@ export class ClientFileComponent {
       this.clientService.updateClient(this.clientFile.client.nif, updatedClient).subscribe(
         (response: any) => {
           console.log('Client updated:', response);
+          this.toastr.success('Cliente atualizado!');
           this.clientFile.client = { ...updatedClient };
           this.isEditing = false;
         },
         (error: any) => {
           console.log('Error updating client:', error);
+          this.toastr.error('Erro ao atualizar cliente!');
         }
       );
     }
