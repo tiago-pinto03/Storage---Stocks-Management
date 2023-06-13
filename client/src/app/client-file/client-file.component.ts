@@ -27,7 +27,7 @@ export class ClientFileComponent {
         } else {
           this.clientFile = null;
           console.log('Client file not found.');
-          this.toastr.error('Cliente nao encontrado!');
+          this.toastr.error('Cliente não encontrado!');
         }
       },
       (error) => {

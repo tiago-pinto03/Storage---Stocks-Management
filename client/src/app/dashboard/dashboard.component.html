@@ -33,8 +33,9 @@
             <h1>Olá, {{ loggedInEmployee.name }}!</h1>
           </ng-container>
         </h2>
+        <canvas height="30" width="100" #salesChart class="chart-container"></canvas>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 mt-5">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Registar Clientes</h5>
@@ -43,11 +44,11 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 mt-5">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Ficha Cliente</h5>
-                <p class="card-text">Veja a ficha do cliente e Todas as suas compras.</p>
+                <p class="card-text">Veja a ficha do cliente e todas as suas compras.</p>
                 <a routerLink="/clientFile" class="btn btn-primary">Ficha Cliente</a>
               </div>
             </div>

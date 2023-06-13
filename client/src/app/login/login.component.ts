@@ -20,10 +20,10 @@ export class LoginComponent {
       (user: Employee) => {
         this.authService.setLoggedIn(true);
         this.router.navigate(['/dashboard']);
-        this.toastr.success('Login successful!');
+        this.toastr.success('Login feito com sucesso!');
       },
       (error) => {
-        this.toastr.error('Login Failed!');
+        this.toastr.error('Erro ao Entrar!');
       }
     );
   }
