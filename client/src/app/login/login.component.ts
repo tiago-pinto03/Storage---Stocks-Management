@@ -23,7 +23,7 @@ export class LoginComponent {
         this.toastr.success('Login successful!');
       },
       (error) => {
-        this.toastr.error('Login Failed!', error);
+        this.toastr.error('Login Failed!');
       }
     );
   }

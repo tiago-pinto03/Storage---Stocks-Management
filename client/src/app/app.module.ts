@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HttpClient } from '@angular/common/http'
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +24,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductsComponent } from './products/products.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { SalesComponent } from './sales/sales.component';
+import { TokenInterceptor } from './_interceptor/token.interceptor';
+import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import { SalesComponent } from './sales/sales.component';
     ClientFileComponent,
     ProductsComponent,
     SupplierComponent,
-    SalesComponent
+    SalesComponent,
+    RegisterEmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,13 @@ import { SalesComponent } from './sales/sales.component';
       preventDuplicates: true,
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

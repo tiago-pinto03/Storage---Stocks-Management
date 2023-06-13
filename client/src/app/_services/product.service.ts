@@ -15,8 +15,9 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.baseUrl);
+  getProducts(token: string): Observable<Product[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Product[]>(this.baseUrl, { headers });
   }
 
   addProduct(product: Product): Observable<Product> {

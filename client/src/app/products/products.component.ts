@@ -27,15 +27,26 @@ export class ProductsComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.productService.getProducts().subscribe(
-      (products) => {
-        this.products = products;
-      },
-      (error) => {
-        console.log('Error retrieving products:', error);
-        this.toastr.error('Erro ao carregar produtos!', error);
+    const loggedInEmployee = localStorage.getItem('loggedInEmployee');
+    if (loggedInEmployee) {
+      const loggedInUser = JSON.parse(loggedInEmployee);
+      const token = loggedInUser.token;
+      if (token) {
+        this.productService.getProducts(token).subscribe(
+          (products) => {
+            this.products = products;
+          },
+          (error) => {
+            console.log('Error retrieving products:', error);
+            this.toastr.error('Erro ao carregar produtos!', error);
+          }
+        );
+      } else {
+        console.log('Token is null');
       }
-    );
+    } else {
+      console.log('loggedInUserStr is null');
+    }
   }
 
   toggleProducts(): void {

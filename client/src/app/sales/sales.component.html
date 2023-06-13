@@ -1,33 +1,33 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-3 col-12 bg-dark text-white" style="height: 100vh;">
+    <div class="col-md-3 col-12 bg-dark text-white" style="height: 100vh; overflow-y: auto;">
       <h2 class="text-center py-4" routerLink="/dashboard" style="cursor: pointer;">Dashboard</h2>
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Home</a>
+          <a class="nav-link text-white" href="#">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/createClient">Register Clients</a>
+          <a class="nav-link text-white" routerLink="/createClient">Registar Cliente</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/clientFile">Client Files</a>
+          <a class="nav-link text-white" routerLink="/clientFile">Ficha de Cliente</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/products">Products</a>
+          <a class="nav-link text-white" routerLink="/products">Produtos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/products">Sales</a>
+          <a class="nav-link text-white" routerLink="/sales">Vendas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/suppliers">Suppliers</a>
+          <a class="nav-link text-white" routerLink="/suppliers">Fornecedores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Register Employee</a>
+          <a class="nav-link text-white" routerLink="/registerEmployee">Registar Funcionários</a>
         </li>
       </ul>
     </div>
 
-    <div class="col-md-9 col-12 bg-light">
+    <div class="col-md-9 col-12 bg-light overflow-auto" style="height: 100vh;">
       <div class="container py-4">
         <h2 class="mb-4">Vendas</h2>
         <div class="row">
@@ -56,11 +56,11 @@
               <div class="card-body">
                 <ng-container *ngIf="!showEditSales || editedSale.id !== sale.id">
                   <p class="card-text">ID Venda: {{ sale.id }}</p>
-                  <p class="card-text">Preco Venda: {{ sale.price }}</p>
+                  <p class="card-text">Preço Venda: {{ sale.price }}</p>
                   <p class="card-text">Quantidade Produtos: {{ sale.quantity }}</p>
                   <p class="card-text">Nome Produto: {{ sale.product?.name }}</p>
                   <p class="card-text">Nome Cliente: {{ sale.client?.name }}</p>
-                  <p class="card-text">Nome Funcionario: {{ sale.employee?.name }}</p>
+                  <p class="card-text">Nome Funcionário: {{ sale.employee?.name }}</p>
                 </ng-container>
                 <ng-container *ngIf="showEditSales && editedSale.id === sale?.id">
                   <input [(ngModel)]="editedSale.id" type="text" class="form-control">

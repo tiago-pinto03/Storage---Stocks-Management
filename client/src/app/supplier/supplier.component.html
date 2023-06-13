@@ -1,32 +1,33 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-3 col-12 bg-dark text-white" style="height: 100vh;">
-      <h2 class="text-center py-4" routerLink="/dashboard" style="cursor: pointer">Dashboard</h2>
-        <ul class="nav flex-column">
-          <li class="nav-item"><a class="nav-link text-white" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/createClient">Register Clients</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/clientFile">Client Files</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/products">Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/sales">Sales</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/products">Suppliers</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#">Register Employee</a>
-          </li>
-        </ul>
+    <div class="col-md-3 col-12 bg-dark text-white" style="height: 100vh; overflow-y: auto;">
+      <h2 class="text-center py-4" routerLink="/dashboard" style="cursor: pointer;">Dashboard</h2>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/createClient">Registar Cliente</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/clientFile">Ficha de Cliente</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/products">Produtos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/sales">Vendas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/suppliers">Fornecedores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/registerEmployee">Registar Funcionários</a>
+        </li>
+      </ul>
     </div>
 
-    <div class="col-md-9 col-12 bg-light">
+    <div class="col-md-9 col-12 bg-light overflow-auto" style="height: 100vh;">
       <div class="card col-md-10 ms-5 mt-5">
         <div class="card-header">
           Fornecedores
