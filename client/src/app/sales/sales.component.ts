@@ -119,13 +119,16 @@ export class SalesComponent implements OnInit {
       );
   }
 
-  updateSales() {
+  updateSales(): void {
     this.salesService.updateSales(this.editedSale)
       .subscribe(
         () => {
+          const index = this.sales.findIndex(sale => sale.id === this.editedSale.id);
+          if (index !== -1) {
+            this.sales[index] = { ...this.editedSale }; 
+          }
           this.updateSuccess = true;
           this.showEditSales = false;
-          this.getSales();
           this.toastr.success('Venda Atualizada!');
         },
         (error) => {
@@ -134,6 +137,7 @@ export class SalesComponent implements OnInit {
         }
       );
   }
+
 
   cancelEdit() {
     this.showEditSales = false;

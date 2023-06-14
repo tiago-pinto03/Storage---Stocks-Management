@@ -56,7 +56,6 @@
                 <button class="btn btn-secondary ms-2" (click)="cancelAdd()">Cancelar</button>
               </div>
             </div>
-
           </div>
           <div class="col-md-6" *ngFor="let sale of sales">
             <div class="card mb-3">
@@ -70,17 +69,30 @@
                   <p class="card-text">Nome Funcionário: {{ sale.employee?.name }}</p>
                 </ng-container>
                 <ng-container *ngIf="showEditSales && editedSale.id === sale?.id">
-                  <input [(ngModel)]="editedSale.id" type="text" class="form-control">
-                  <input [(ngModel)]="editedSale.price" type="text" class="form-control">
+                  <label>ID VENDA</label>
+                  <input [(ngModel)]="editedSale.id" type="text" class="form-control" readonly>
+                  <label>Quantidade</label>
                   <input [(ngModel)]="editedSale.quantity" type="text" class="form-control">
-                  <input [(ngModel)]="editedSale.product!.id" type="text" class="form-control">
-                  <input [(ngModel)]="editedSale.client!.id" type="text" class="form-control">
-                  <input [(ngModel)]="editedSale.employee!.id" type="text" class="form-control">
+
+                  <label for="saleProduct">Produto</label>
+                  <select class="form-control" [(ngModel)]="editedSale.product">
+                    <option *ngFor="let product of products" [ngValue]="product">{{ product.name }}</option>
+                  </select>
+                  <label for="saleProduct">Cliente</label>
+                  <select class="form-control" [(ngModel)]="editedSale.client">
+                    <option *ngFor="let client of clients" [ngValue]="client">Nome: {{ client.name }} NIF: {{ client.nif }}</option>
+                  </select>
+                  <label for="saleProduct">Funcionário</label>
+                  <select class="form-control" [(ngModel)]="editedSale.employee">
+                    <option *ngFor="let employee of employees" [ngValue]="employee"> {{ employee.name }}</option>
+                  </select>
+
                   <div class="mt-2">
                     <button class="btn btn-success" (click)="updateSales()">Guardar</button>
                     <button class="btn btn-secondary ms-2" (click)="cancelEdit()">Cancelar</button>
                   </div>
                 </ng-container>
+
               </div>
               <div class="card-footer">
                 <button *ngIf="!showEditSales" class="btn btn-primary" (click)="onEditClick(sale)">Editar</button>
