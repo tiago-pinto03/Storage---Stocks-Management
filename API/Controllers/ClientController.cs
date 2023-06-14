@@ -95,7 +95,8 @@ namespace API.Controllers
             {
                 Name = registerClientDto.Name,
                 Email = registerClientDto.Email.ToLower(),
-                NIF = registerClientDto.NIF
+                NIF = registerClientDto.NIF,
+                Phone = registerClientDto.Phone
             };
 
             _context.Clients.Add(client);

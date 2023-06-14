@@ -35,12 +35,12 @@
           <div class="col-12 col-lg-9 col-xl-7">
             <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
               <div class="card-body p-4 p-md-5">
-                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Register Client</h3>
+                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registar Cliente</h3>
                 <form (ngSubmit)="registerClient(); resetForm()">
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <label class="form-label" for="Name">Name</label>
+                        <label class="form-label" for="Name">Nome</label>
                         <input type="text" id="Name" name="name" class="form-control form-control-lg" [(ngModel)]="client.name" />
                       </div>
                     </div>
@@ -58,8 +58,14 @@
                         <input type="email" id="emailAddress" name="email" class="form-control form-control-lg" [(ngModel)]="client.email" />
                       </div>
                     </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="phoneNumber">Telemóvel</label>
+                        <input type="number" id="phoneNumber" name="phone" class="form-control form-control-lg" [(ngModel)]="client.phone" />
+                      </div>
+                    </div>
                     <div class="col-md-6 mb-4 d-flex align-items-end">
-                      <button class="btn btn-primary btn-lg ml-auto" type="submit">Submit</button>
+                      <button class="btn btn-primary btn-lg ml-auto" type="submit">Registar</button>
                     </div>
                   </div>
                 </form>

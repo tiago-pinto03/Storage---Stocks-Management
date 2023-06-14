@@ -32,7 +32,7 @@ export class ClientFileComponent {
       },
       (error) => {
         console.log('Error retrieving client file:', error);
-        this.toastr.error('Erro ao mostrar ficha cliente!');
+        this.toastr.error('Cliente não exististente ou sem compras!');
       }
     );
   }

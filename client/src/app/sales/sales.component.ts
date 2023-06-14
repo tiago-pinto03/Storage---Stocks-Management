@@ -42,10 +42,11 @@ export class SalesComponent implements OnInit {
           this.updateSuccess = true;
           this.showEditSales = false;
           this.getSales();
+          this.toastr.success('Venda Atualizada!');
         },
         (error) => {
           console.error(error);
-          this.toastr.error('Erro ao atualizar venda!', error);
+          this.toastr.error('Erro ao atualizar venda!');
         }
       );
   }
@@ -105,6 +106,7 @@ export class SalesComponent implements OnInit {
       (addedSale) => {
         this.sales.push(addedSale);
         this.newSale = {};
+        this.toastr.success('Venda adicionada com sucesso!');
       },
       (error) => {
         console.log('Error adding sale:', error);

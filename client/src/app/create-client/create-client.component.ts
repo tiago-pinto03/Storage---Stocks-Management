@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./create-client.component.css']
 })
 export class CreateClientComponent {
-  client: Client = { name: '', nif: 0, email: ''};
+  client: Client = { name: '', nif: 0, email: '', phone: 0};
 
   constructor(private clientService: ClientService, private toastr: ToastrService) {}
 
@@ -21,10 +21,10 @@ export class CreateClientComponent {
     this.clientService.registerClient(this.client).subscribe(
       (response) => {
         console.log('Client registration successful:', response);
-        this.toastr.error('Cliente Registado com sucesso!');
+        this.toastr.success('Cliente Registado com sucesso!');
       },
       (error) => {
-        this.toastr.error('Falha ao registar cliente!', error);
+        this.toastr.error('Falha ao registar cliente!');
       }
     );
   }
