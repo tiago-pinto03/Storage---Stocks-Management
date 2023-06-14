@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Employee } from '../_models/employee';
 import { environment } from '../environment';
@@ -15,6 +15,11 @@ export class EmployeeService {
 
   registerEmployee(employee: Employee): Observable<any> {
     return this.http.post(this.registerUrl, employee);
+  }
+
+  getEmployees(token: string): Observable<Employee[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Employee[]>(this.baseUrl, { headers });
   }
 
 }

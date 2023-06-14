@@ -38,18 +38,25 @@
             <div class="card-body">
               <h5 class="card-title">Adicionar Venda</h5>
               <label>Quantidade Produtos</label>
-              <input [(ngModel)]="newSale.quantity" type="text" class="form-control mb-1">
-              <label for="saleProduct">ID Produto</label>
-              <input type="text" class="form-control" id="saleProduct" [ngModel]="newSale.product?.id" (ngModelChange)="updateProductId($event)" name="saleProduct">
-              <label for="saleClient">ID Cliente</label>
-              <input type="text" class="form-control" id="saleClient" [ngModel]="newSale.client?.id" (ngModelChange)="updateClientId($event)" name="saleClient">
-              <label for="saleEmployee">ID Empregado</label>
-              <input type="text" class="form-control" id="saleEmployee" [ngModel]="newSale.employee?.id" (ngModelChange)="updateEmployeeId($event)" name="saleEmployee">
+              <input [(ngModel)]="newSale.quantity" type="number" class="form-control mb-1" min="0">
+              <label for="saleProduct">Produto</label>
+              <select class="form-control" [(ngModel)]="selectedProduct" (ngModelChange)="updateProductId($event)">
+                <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+              </select>
+              <label for="saleProduct">Cliente</label>
+              <select class="form-control" [(ngModel)]="selectedClient" (ngModelChange)="updateClientId($event)">
+                <option *ngFor="let client of clients" [value]="client.id">Nome: {{ client.name }} NIF: {{ client.nif }}</option>
+              </select>
+              <label for="saleEmployee">Funcionário</label>
+              <select class="form-control" [(ngModel)]="selectedEmployee" (ngModelChange)="updateEmployeeId($event)">
+                <option *ngFor="let employee of employees" [value]="employee.id">{{ employee.name }}</option>
+              </select>
               <div class="mt-2">
                 <button class="btn btn-success" (click)="addSale()">Adicionar</button>
                 <button class="btn btn-secondary ms-2" (click)="cancelAdd()">Cancelar</button>
               </div>
             </div>
+
           </div>
           <div class="col-md-6" *ngFor="let sale of sales">
             <div class="card mb-3">

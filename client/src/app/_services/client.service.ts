@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environment';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Client } from '../_models/client';
@@ -10,6 +10,7 @@ import { Client } from '../_models/client';
 export class ClientService {
   private baseUrl = environment.baseUrl;
   private registerUrl = `${this.baseUrl}/Client/register`;
+  private getUrl = `${this.baseUrl}/Client`;
 
   constructor(private http: HttpClient) {}
 
@@ -20,6 +21,11 @@ export class ClientService {
         return throwError(error);
       })
     );
+  }
+
+  getClients(token: string): Observable<Client[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Client[]>(this.getUrl, { headers });
   }
 
   getClientFileByNIF(nif: string): Observable<any> {

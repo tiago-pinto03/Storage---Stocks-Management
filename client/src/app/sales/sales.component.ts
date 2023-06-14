@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Sales } from '../_models/sales';
 import { SalesService } from '../_services/sales.service';
 import { ToastrService } from 'ngx-toastr';
+import { Product } from '../_models/product';
+import { ProductService } from '../_services/product.service';
+import { EmployeeService } from '../_services/employee.service';
+import { Employee } from '../_models/employee';
+import { ClientService } from '../_services/client.service';
+import { Client } from '../_models/client';
 
 @Component({
   selector: 'app-sales',
@@ -15,11 +21,89 @@ export class SalesComponent implements OnInit {
   editedSale: Sales = {};
   showAddSale = false;
   newSale: Partial<Sales> = {};
+  products: Product[] = [];
+  employees: Employee[] = [];
+  clients: Client[] = [];
+  selectedProduct: string = '';
+  selectedEmployee: string = '';
+  selectedClient: string = '';
 
-  constructor(private salesService: SalesService, private toastr: ToastrService) { }
+  constructor(private salesService: SalesService, private productService: ProductService,
+     private emplyeeService: EmployeeService, private toastr: ToastrService, private clientService: ClientService) { }
 
   ngOnInit(): void {
     this.getSales();
+    this.getProducts();
+    this.getEmployees();
+    this.getClients();
+  }
+
+  getClients(): void {
+    const loggedInEmployee = localStorage.getItem('loggedInEmployee');
+    if (loggedInEmployee) {
+      const loggedInUser = JSON.parse(loggedInEmployee);
+      const token = loggedInUser.token;
+      if (token) {
+        this.clientService.getClients(token).subscribe(
+          (client) => {
+            this.clients = client;
+          },
+          (error) => {
+            console.log('Error retrieving clients:', error);
+          }
+        );
+      } else {
+        console.log('Token is null');
+      }
+    } else {
+      console.log('loggedInUserStr is null');
+    }
+  }
+
+  getEmployees(): void {
+    const loggedInEmployee = localStorage.getItem('loggedInEmployee');
+    if (loggedInEmployee) {
+      const loggedInUser = JSON.parse(loggedInEmployee);
+      const token = loggedInUser.token;
+      if (token) {
+        this.emplyeeService.getEmployees(token).subscribe(
+          (employees) => {
+            this.employees = employees;
+          },
+          (error) => {
+            console.log('Error retrieving employees:', error);
+            this.toastr.error('Erro ao carregar funcionarios!', error);
+          }
+        );
+      } else {
+        console.log('Token is null');
+      }
+    } else {
+      console.log('loggedInUserStr is null');
+    }
+  }
+
+  getProducts(): void {
+    const loggedInEmployee = localStorage.getItem('loggedInEmployee');
+    if (loggedInEmployee) {
+      const loggedInUser = JSON.parse(loggedInEmployee);
+      const token = loggedInUser.token;
+      if (token) {
+        this.productService.getProducts(token).subscribe(
+          (products) => {
+            this.products = products;
+          },
+          (error) => {
+            console.log('Error retrieving products:', error);
+            this.toastr.error('Erro ao carregar produtos!', error);
+          }
+        );
+      } else {
+        console.log('Token is null');
+      }
+    } else {
+      console.log('loggedInUserStr is null');
+    }
   }
 
   getSales(): void {
@@ -80,10 +164,7 @@ export class SalesComponent implements OnInit {
   }
 
   updateProductId(productId: string): void {
-    if (!this.newSale.product) {
-      this.newSale.product = {};
-    }
-    this.newSale.product.id = productId;
+    this.newSale.product = this.products.find(product => product.id === productId);
   }
 
   updateClientId(clientId: string): void {
@@ -94,10 +175,7 @@ export class SalesComponent implements OnInit {
   }
 
   updateEmployeeId(employeeId: string): void {
-    if (!this.newSale.employee) {
-      this.newSale.employee = {token:''};
-    }
-    this.newSale.employee.id = employeeId;
+    this.newSale.employee = this.employees.find(emp => emp.id === employeeId);
   }
 
 
