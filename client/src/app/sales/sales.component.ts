@@ -125,10 +125,13 @@ export class SalesComponent implements OnInit {
         () => {
           const index = this.sales.findIndex(sale => sale.id === this.editedSale.id);
           if (index !== -1) {
-            this.sales[index] = { ...this.editedSale }; 
+            this.sales[index] = { ...this.editedSale };
           }
           this.updateSuccess = true;
           this.showEditSales = false;
+          if (this.editedSale.product && this.editedSale.product.quantity && this.editedSale.product.quantity < 50) {
+            this.toastr.warning('AVISO: Quantidade abaixo de 50');
+          }
           this.toastr.success('Venda Atualizada!');
         },
         (error) => {
@@ -187,6 +190,9 @@ export class SalesComponent implements OnInit {
     this.salesService.addSale(this.newSale).subscribe(
       (addedSale) => {
         this.sales.push(addedSale);
+        if (this.newSale.product && this.newSale.product.quantity && this.newSale.product.quantity < 50) {
+          this.toastr.warning('AVISO: Quantidade abaixo de 50');
+        }
         this.newSale = {};
         this.toastr.success('Venda adicionada com sucesso!');
       },
