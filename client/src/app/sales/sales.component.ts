@@ -120,26 +120,44 @@ export class SalesComponent implements OnInit {
   }
 
   updateSales(): void {
-    this.salesService.updateSales(this.editedSale)
-      .subscribe(
-        () => {
-          const index = this.sales.findIndex(sale => sale.id === this.editedSale.id);
-          if (index !== -1) {
-            this.sales[index] = { ...this.editedSale };
-          }
-          this.updateSuccess = true;
-          this.showEditSales = false;
-          if (this.editedSale.product && this.editedSale.product.quantity && this.editedSale.product.quantity < 50) {
-            this.toastr.warning('AVISO: Quantidade abaixo de 50');
-          }
-          this.toastr.success('Venda Atualizada!');
-        },
-        (error) => {
-          console.error(error);
-          this.toastr.error('Erro ao atualizar venda!');
+    debugger
+    this.salesService.updateSales(this.editedSale).subscribe(
+      () => {
+        const index = this.sales.findIndex(sale => sale.id === this.editedSale.id);
+        if (index !== -1) {
+          this.sales[index] = { ...this.editedSale };
         }
-      );
+        this.updateSuccess = true;
+        this.showEditSales = false;
+
+        const loggedInEmployee = localStorage.getItem('loggedInEmployee');
+        if (loggedInEmployee) {
+          const loggedInUser = JSON.parse(loggedInEmployee);
+          const token = loggedInUser.token;
+          if (token) {
+            this.productService.getProducts(token).subscribe(
+              (products) => {
+                const updatedProduct = products.find(product => product.id === this.editedSale?.product?.id);
+                if (updatedProduct && updatedProduct.quantity && updatedProduct.quantity < 50) {
+                  this.toastr.warning('AVISO: Quantidade abaixo de 50');
+                }
+                this.toastr.success('Venda Atualizada!');
+              },
+              (error) => {
+                console.error(error);
+                this.toastr.error('Erro ao obter produtos!');
+              }
+            );
+          }
+        }
+      },
+      (error) => {
+        console.error(error);
+        this.toastr.error('Erro ao atualizar venda!');
+      }
+    );
   }
+
 
 
   cancelEdit() {
