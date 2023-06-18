@@ -32,12 +32,15 @@
           <div class="col-md-4">
             <div class="card mb-4">
               <div class="card-body">
-                <h5 class="card-title text-center">Ver Produtos</h5>
+                <h5 class="card-title text-center">Ver Produtos Detalhados</h5>
                 <button class="btn btn-primary" (click)="toggleProducts()">
                   {{ showProducts ? 'Esconder' : 'Ver' }}
                 </button>
-                <ul class="list-group mt-3" *ngIf="showProducts && products.length > 0">
-                  <li class="list-group-item" *ngFor="let product of products">
+                <div class="form-group mt-3" *ngIf="showProducts == true">
+                  <input type="text" class="form-control" placeholder="Pesquisar por Nome" [(ngModel)]="searchProductName">
+                </div>
+                <ul class="list-group mt-3" *ngIf="showProducts && filteredProducts.length > 0">
+                  <li class="list-group-item" *ngFor="let product of filteredProducts">
                     <p><strong>Nome: </strong> {{ product.name }}</p>
                     <p><strong>Preço Unitário: </strong> {{ product.unitPrice }} €</p>
                     <p><strong>Quantidade: </strong> {{ product.quantity }} unit.</p>
@@ -46,6 +49,24 @@
                       <ng-template #unavailable>INDISPONÍVEL</ng-template>
                     </p>
                     <p><strong>Fornecedor: </strong> {{ product.supplier?.name }}</p>
+                  </li>
+                </ul>
+                <p class="mt-3" *ngIf="filteredProducts.length === 0">Sem produtos</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h5 class="card-title text-center">Ver Produtos</h5>
+                <button class="btn btn-primary" (click)="toggleProducts2()">
+                  {{ showProducts2 ? 'Esconder' : 'Ver' }}
+                </button>
+                <ul class="list-group mt-3" *ngIf="showProducts2 && products.length > 0">
+                  <li class="list-group-item" *ngFor="let product of products">
+                    <p><strong>Nome: </strong> {{ product.name }}</p>
+                    <p><strong>Quantidade: </strong> {{ product.quantity }} unit.</p>
                   </li>
                 </ul>
                 <p class="mt-3" *ngIf="products.length === 0">Sem produtos</p>

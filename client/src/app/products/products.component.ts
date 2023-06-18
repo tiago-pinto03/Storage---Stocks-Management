@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
   showProducts: boolean = false;
+  showProducts2: boolean = false;
   showEditProducts: boolean = false;
   isEditingProduct: boolean = false;
   product?: Product;
@@ -19,6 +20,7 @@ export class ProductsComponent implements OnInit {
   newProduct: Product = {};
   showAddProductForm: boolean = false;
   updateSuccess: boolean = false;
+  searchProductName: string = '';
 
   constructor(private productService: ProductService, private toastr: ToastrService) {}
 
@@ -49,8 +51,21 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  get filteredProducts(): Product[] {
+    if (this.searchProductName) {
+      return this.products.filter((product) =>
+        product?.name?.toLowerCase().includes(this.searchProductName.toLowerCase())
+      );
+    }
+    return this.products;
+  }
+
   toggleProducts(): void {
     this.showProducts = !this.showProducts;
+  }
+
+  toggleProducts2(): void {
+    this.showProducts2 = !this.showProducts2;
   }
 
   toggleEditProducts(): void {
