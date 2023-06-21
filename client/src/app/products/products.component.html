@@ -16,6 +16,9 @@
           <a class="nav-link text-white" routerLink="/products">Produtos</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/category">Categorias</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link text-white" routerLink="/sales">Vendas</a>
         </li>
         <li class="nav-item">
@@ -44,6 +47,7 @@
                     <p><strong>Nome: </strong> {{ product.name }}</p>
                     <p><strong>Preço Unitário: </strong> {{ product.unitPrice }} €</p>
                     <p><strong>Quantidade: </strong> {{ product.quantity }} unit.</p>
+                    <p><strong>Categoria: </strong> {{ product.category?.name }}</p>
                     <p><strong>Stock: </strong>
                       <span *ngIf="product.available; else unavailable">DISPONÍVEL</span>
                       <ng-template #unavailable>INDISPONÍVEL</ng-template>
@@ -59,7 +63,7 @@
           <div class="col-md-4">
             <div class="card mb-4">
               <div class="card-body">
-                <h5 class="card-title text-center">Ver Produtos</h5>
+                <h5 class="card-title text-center">Ver Produtos </h5>
                 <button class="btn btn-primary" (click)="toggleProducts2()">
                   {{ showProducts2 ? 'Esconder' : 'Ver' }}
                 </button>
@@ -67,6 +71,7 @@
                   <li class="list-group-item" *ngFor="let product of products">
                     <p><strong>Nome: </strong> {{ product.name }}</p>
                     <p><strong>Quantidade: </strong> {{ product.quantity }} unit.</p>
+                    <p><strong>Categoria </strong> {{ product.category?.name }}</p>
                   </li>
                 </ul>
                 <p class="mt-3" *ngIf="products.length === 0">Sem produtos</p>
@@ -98,6 +103,12 @@
                           <input type="number" class="form-control" id="quantity" [(ngModel)]="editedProduct.quantity" name="quantity">
                         </div>
                         <div class="form-group">
+                          <label for="supplier">Categoria</label>
+                          <select class="form-control" id="category" [(ngModel)]="editedProduct.category" name="Category">
+                            <option *ngFor="let cat of category" [ngValue]="cat">{{ cat.name }}</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
                           <label for="available">Disponivel</label>
                           <select class="form-control" id="available" [(ngModel)]="editedProduct.available" name="available">
                             <option value="true">Sim</option>
@@ -105,8 +116,10 @@
                           </select>
                         </div>
                         <div class="form-group">
-                          <label for="quantity">Fornecedor</label>
-                          <input type="text" class="form-control" id="supplier" [ngModel]="newProduct.supplier?.id" (ngModelChange)="updateSupplierId($event)" name="supplier" placeholder="ID Fornecedor">
+                          <label for="supplier">Fornecedor</label>
+                          <select class="form-control" id="supplier" [(ngModel)]="editedProduct.supplier" name="supplier">
+                            <option *ngFor="let sup of supplier" [ngValue]="sup">{{ sup.name }}</option>
+                          </select>
                         </div>
                         <button class="btn btn-primary mt-1 me-1" (click)="updateProduct()">Salvar</button>
                         <button class="btn btn-secondary mt-1 me-1" (click)="cancelEdit()">Cancelar</button>
@@ -117,16 +130,18 @@
                       <p><strong>Nome: </strong>{{ product.name }}</p>
                       <p><strong>Preço Unitário: </strong>{{ product.unitPrice }}</p>
                       <p><strong>Quantidade: </strong>{{ product.quantity }}</p>
+                      <p><strong>Categoria: </strong>{{ product.category?.name }}</p>
                       <p><strong>Disponivel: </strong>{{ product.available ? 'Sim' : 'Não' }}</p>
                       <p><strong>Fornecedor: </strong>{{ product.supplier?.name }}</p>
                       <button class="btn btn-primary" (click)="editProduct(product)">Editar</button>
                     </ng-template>
                   </li>
                 </ul>
-                <p class="mt-3" *ngIf="products.length === 0">Sem produtos disponiveis.</p>
+                <p class="mt-3" *ngIf="products.length === 0">Sem produtos disponíveis.</p>
               </div>
             </div>
           </div>
+
 
           <div class="col-md-4">
             <div class="card mb-4">
@@ -142,14 +157,20 @@
                   </div>
                   <div class="form-group">
                     <label for="newUnitPrice">Preço Unitário</label>
-                    <input type="number" class="form-control" id="newUnitPrice" [(ngModel)]="newProduct.unitPrice" name="newUnitPrice">
+                    <input type="number" class="form-control" id="newUnitPrice" [(ngModel)]="newProduct.unitPrice" name="newUnitPrice" min="0">
                   </div>
                   <div class="form-group">
                     <label for="newQuantity">Quantidade</label>
-                    <input type="number" class="form-control" id="newQuantity" [(ngModel)]="newProduct.quantity" name="newQuantity">
+                    <input type="number" class="form-control" id="newQuantity" [(ngModel)]="newProduct.quantity" name="newQuantity" min="0">
                   </div>
                   <div class="form-group">
-                    <label for="newAvailable">Disponivel</label>
+                    <label for="prodCategory">Categoria</label>
+                    <select class="form-control" id="prodCategory" [(ngModel)]="newProduct.category" name="prodCategory">
+                      <option *ngFor="let cat of category" [ngValue]="cat">{{ cat.name }}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="newAvailable">Disponível</label>
                     <select class="form-control" id="newAvailable" [(ngModel)]="newProduct.available" name="newAvailable">
                       <option value="true">Sim</option>
                       <option value="false">Não</option>
@@ -157,13 +178,16 @@
                   </div>
                   <div class="form-group">
                     <label for="prodSupplier">Fornecedor</label>
-                    <input type="text" class="form-control" id="prodSupplier" [ngModel]="newProduct.supplier?.id" (ngModelChange)="updateSupplierId($event)" name="prodSupplier">
+                    <select class="form-control" id="prodSupplier" [(ngModel)]="newProduct.supplier" name="prodSupplier">
+                      <option *ngFor="let sup of supplier" [ngValue]="sup">{{ sup.name }}</option>
+                    </select>
                   </div>
                   <button class="btn btn-primary mt-1" (click)="addProduct()">Adicionar</button>
                 </form>
               </div>
             </div>
           </div>
+
 
         </div>
       </div>

@@ -26,6 +26,7 @@ import { SupplierComponent } from './supplier/supplier.component';
 import { SalesComponent } from './sales/sales.component';
 import { TokenInterceptor } from './_interceptor/token.interceptor';
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
+import { CategoryComponent } from './category/category.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { RegisterEmployeeComponent } from './register-employee/register-employee
     ProductsComponent,
     SupplierComponent,
     SalesComponent,
-    RegisterEmployeeComponent
+    RegisterEmployeeComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,

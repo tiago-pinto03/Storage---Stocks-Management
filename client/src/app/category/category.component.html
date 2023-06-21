@@ -33,7 +33,7 @@
     <div class="col-md-9 col-12 bg-light overflow-auto" style="height: 100vh;">
       <div class="card col-md-10 ms-5 mt-5">
         <div class="card-header">
-          Fornecedores
+          Categorias
         </div>
         <div class="card-body">
           <table class="table">
@@ -45,38 +45,39 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let supplier of suppliers">
-                <td>{{ supplier.id }}</td>
+              <tr *ngFor="let cat of category">
+                <td>{{ cat.id }}</td>
                 <td>
-                  <ng-container *ngIf="!supplier.editMode; else editSupplierName">
-                    {{ supplier.name }}
+                  <ng-container *ngIf="!cat.editMode; else editCategoryName">
+                    {{ cat.name }}
                   </ng-container>
-                  <ng-template #editSupplierName>
-                    <input [(ngModel)]="supplier.name" class="form-control" />
+                  <ng-template #editCategoryName>
+                    <input [(ngModel)]="cat.name" class="form-control" />
                   </ng-template>
                 </td>
                 <td>
-                  <ng-container *ngIf="!supplier.editMode; else editButtons">
-                    <button class="btn btn-primary me-1" (click)="toggleEditMode(supplier)">Editar</button>
-                    <button class="btn btn-danger" (click)="deleteSupplier(supplier.id)">Excluir</button>
+                  <ng-container *ngIf="!cat.editMode; else editButtons">
+                    <button class="btn btn-primary me-1" (click)="toggleEditMode(cat)">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteCategory(cat.id)">Excluir</button>
                   </ng-container>
                   <ng-template #editButtons>
-                    <button class="btn btn-success me-1" (click)="saveSupplier(supplier)">Salvar</button>
-                    <button class="btn btn-danger" (click)="cancelEdit(supplier)">Cancelar</button>
+                    <button class="btn btn-success me-1" (click)="saveCategory(cat)">Salvar</button>
+                    <button class="btn btn-danger" (click)="cancelEdit(cat)">Cancelar</button>
                   </ng-template>
                 </td>
               </tr>
             </tbody>
           </table>
-          <form (submit)="createSupplier()">
+          <form (submit)="createCategory()">
             <div class="form-group">
               <label for="name">Name:</label>
-              <input type="text" class="form-control" [(ngModel)]="newSupplier.name" name="name" required>
+              <input type="text" class="form-control" [(ngModel)]="newCategory.name" name="name" required>
             </div>
-            <button type="submit" class="btn btn-success mt-2">Criar Fornecedor</button>
+            <button type="submit" class="btn btn-success mt-2">Criar Categoria</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 </div>
+

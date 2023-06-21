@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../_models/product';
 import { ProductService } from '../_services/product.service';
 import { ToastrService } from 'ngx-toastr';
+import { Employee } from '../_models/employee';
+import { EmployeeService } from '../_services/employee.service';
+import { Supplier } from '../_models/supplier';
+import { SupplierService } from '../_services/supplier.service';
+import { CategoryService } from '../_services/category.service';
+import { Category } from '../_models/category';
 
 @Component({
   selector: 'app-products',
@@ -21,11 +27,15 @@ export class ProductsComponent implements OnInit {
   showAddProductForm: boolean = false;
   updateSuccess: boolean = false;
   searchProductName: string = '';
+  supplier: Supplier[] = [];
+  category: Category[] = [];
 
-  constructor(private productService: ProductService, private toastr: ToastrService) {}
+  constructor(private productService: ProductService, private toastr: ToastrService, private supplierService: SupplierService, private categoryService: CategoryService) {}
 
   ngOnInit(): void {
     this.loadProducts();
+    this.loadSuppliers();
+    this.loadCategories();
   }
 
   loadProducts(): void {
@@ -49,6 +59,30 @@ export class ProductsComponent implements OnInit {
     } else {
       console.log('loggedInUserStr is null');
     }
+  }
+
+  loadSuppliers(): void {
+    this.supplierService.getSuppliers().subscribe(
+      (suppliers) => {
+        this.supplier = suppliers;
+      },
+      (error) => {
+        console.log('Error retrieving suppliers:', error);
+        this.toastr.error('Erro ao carregar Fornecedores!', error);
+      }
+    );
+  }
+
+  loadCategories(): void {
+    this.categoryService.getCategories().subscribe(
+      (cat) => {
+        this.category = cat;
+      },
+      (error) => {
+        console.log('Error retrieving categories:', error);
+        this.toastr.error('Erro ao carregar Categorias!', error);
+      }
+    );
   }
 
   get filteredProducts(): Product[] {
@@ -91,19 +125,22 @@ export class ProductsComponent implements OnInit {
         () => {
           this.updateSuccess = true;
           location.reload();
+
+          window.onload = () => {
+            this.toastr.success('Produto atualizado com sucesso!');
+          };
         },
         (error) => {
           console.error(error);
-          this.toastr.error('Erro ao atualizar produto!', error);
+          this.toastr.error('Erro ao atualizar produto!');
         }
       );
   }
 
-  updateSupplierId(supplierId: string): void {
-    if (!this.editedProduct.supplier) {
-      this.editedProduct.supplier = {};
-    }
-    this.editedProduct.supplier.id = supplierId;
+
+  updateSupplierId(supplierId: string) {
+    const selectedEmployee = this.supplier.find((supplier) => supplier.id === supplierId);
+    this.editedProduct.supplier = selectedEmployee;
   }
 
 
@@ -117,6 +154,7 @@ export class ProductsComponent implements OnInit {
       (addedProduct) => {
         this.products.push(addedProduct);
         this.newProduct = {};
+        this.toastr.success('Produto criado com sucesso!');
       },
       (error) => {
         console.log('Error adding product:', error);
@@ -134,6 +172,7 @@ export class ProductsComponent implements OnInit {
         .subscribe(
           () => {
             this.showEditProducts = false;
+            this.toastr.success('Produto excluido com sucesso!');
           },
           (error) => {
             console.error(error);

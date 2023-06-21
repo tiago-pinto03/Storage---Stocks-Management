@@ -10,6 +10,7 @@ import { ProductsComponent } from './products/products.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { SalesComponent } from './sales/sales.component';
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
+import { CategoryComponent } from './category/category.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'suppliers', component: SupplierComponent, canActivate: [AuthGuard] },
   { path: 'sales', component: SalesComponent, canActivate: [AuthGuard] },
   { path: 'registerEmployee', component: RegisterEmployeeComponent, canActivate: [AuthGuard] },
+  { path: 'category', component: CategoryComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomeComponent, pathMatch: "full" },
 ];
 
