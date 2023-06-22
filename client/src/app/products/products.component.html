@@ -63,21 +63,25 @@
           <div class="col-md-4">
             <div class="card mb-4">
               <div class="card-body">
-                <h5 class="card-title text-center">Ver Produtos </h5>
+                <h5 class="card-title text-center">Ver Produtos</h5>
                 <button class="btn btn-primary" (click)="toggleProducts2()">
                   {{ showProducts2 ? 'Esconder' : 'Ver' }}
                 </button>
-                <ul class="list-group mt-3" *ngIf="showProducts2 && products.length > 0">
-                  <li class="list-group-item" *ngFor="let product of products">
+                <div class="form-group mt-3" *ngIf="showProducts2">
+                  <input type="text" class="form-control" placeholder="Pesquisar por Categoria" [(ngModel)]="searchCategory">
+                </div>
+                <ul class="list-group mt-3" *ngIf="showProducts2 && filteredCategory.length > 0">
+                  <li class="list-group-item" *ngFor="let product of filteredCategory">
                     <p><strong>Nome: </strong> {{ product.name }}</p>
                     <p><strong>Quantidade: </strong> {{ product.quantity }} unit.</p>
-                    <p><strong>Categoria </strong> {{ product.category?.name }}</p>
+                    <p><strong>Categoria: </strong> {{ product.category?.name }}</p>
                   </li>
                 </ul>
-                <p class="mt-3" *ngIf="products.length === 0">Sem produtos</p>
+                <p class="mt-3" *ngIf="filteredCategory.length === 0">Sem produtos</p>
               </div>
             </div>
           </div>
+
 
           <div class="col-md-4">
             <div class="card mb-4">

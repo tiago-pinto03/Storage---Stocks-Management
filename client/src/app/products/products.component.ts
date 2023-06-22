@@ -29,6 +29,7 @@ export class ProductsComponent implements OnInit {
   searchProductName: string = '';
   supplier: Supplier[] = [];
   category: Category[] = [];
+  searchCategory: string = '';
 
   constructor(private productService: ProductService, private toastr: ToastrService, private supplierService: SupplierService, private categoryService: CategoryService) {}
 
@@ -89,6 +90,15 @@ export class ProductsComponent implements OnInit {
     if (this.searchProductName) {
       return this.products.filter((product) =>
         product?.name?.toLowerCase().includes(this.searchProductName.toLowerCase())
+      );
+    }
+    return this.products;
+  }
+
+  get filteredCategory(): Product[] {
+    if (this.searchCategory) {
+      return this.products.filter((product) =>
+        product?.category?.name?.toLowerCase().includes(this.searchCategory.toLowerCase())
       );
     }
     return this.products;
