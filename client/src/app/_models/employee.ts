@@ -5,4 +5,5 @@ export class Employee {
   password?: string;
   confirmPassword?: string;
   token: string = '';
+  isAdmin: boolean = false;
 }

@@ -120,7 +120,6 @@ export class SalesComponent implements OnInit {
   }
 
   updateSales(): void {
-    debugger
     this.salesService.updateSales(this.editedSale).subscribe(
       () => {
         const index = this.sales.findIndex(sale => sale.id === this.editedSale.id);

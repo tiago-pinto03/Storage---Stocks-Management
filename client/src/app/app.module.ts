@@ -10,8 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { AlertModule,AlertConfig } from 'ngx-bootstrap/alert';
+import { AlertModule, AlertConfig } from 'ngx-bootstrap/alert';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
@@ -56,6 +57,7 @@ import { CategoryComponent } from './category/category.component';
     AlertModule,
     FormsModule,
     HttpClientModule,
+    CollapseModule.forRoot(),
     TypeaheadModule.forRoot(),
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),

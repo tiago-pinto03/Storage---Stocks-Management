@@ -39,6 +39,9 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Supplier>> CreateSupplier(Supplier supplier)
         {
+            var supplierName = await _context.Suppliers.Where(c => c.Name.ToLower() == supplier.Name.ToLower()).FirstOrDefaultAsync(); 
+            if (supplierName != null) { return BadRequest("Supplier's Name is taken."); }
+
             _context.Suppliers.Add(supplier);
             await _context.SaveChangesAsync();
 

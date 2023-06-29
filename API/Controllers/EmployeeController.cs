@@ -31,7 +31,8 @@ namespace API.Controllers
                 u.Id,
                 u.Name,
                 u.Email,
-                u.Phone
+                u.Phone,
+                u.IsAdmin
             }).ToListAsync();
 
             return Ok(emp);
@@ -54,7 +55,8 @@ namespace API.Controllers
                 Id = employee.Id,
                 Name = employee.Name,
                 Email = employee.Email,
-                Phone = employee.Phone
+                Phone = employee.Phone,
+                IsAdmin = employee.IsAdmin,
             };
 
             return Ok(employeeDto);
@@ -132,12 +134,12 @@ namespace API.Controllers
                 Id = employee.Id,
                 Name = employee.Name,
                 Email = employee.Email,
-                Token = _tokenService.CreateTokenEmp(employee)
+                Token = _tokenService.CreateTokenEmp(employee),
+                IsAdmin = employee.IsAdmin
             };
 
             return employeeDto;
         }
-
 
 
         // DELETE: api/Employee/'uuid'

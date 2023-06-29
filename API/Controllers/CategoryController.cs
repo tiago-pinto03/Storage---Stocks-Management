@@ -39,6 +39,9 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> CreateCategory(Category category)
         {
+            var categoryName = await _context.Category.Where(c => c.Name == category.Name).FirstOrDefaultAsync(); 
+            if (categoryName != null) { return BadRequest("Category Name is taken."); }
+
             _context.Category.Add(category);
             await _context.SaveChangesAsync();
 

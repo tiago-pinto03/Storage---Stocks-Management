@@ -39,14 +39,14 @@
           <table class="table">
             <thead>
               <tr>
-                <th>ID</th>
+                <!-- <th>ID</th> -->
                 <th>Nome</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let supplier of suppliers">
-                <td>{{ supplier.id }}</td>
+                <!-- <td>{{ supplier.id }}</td> -->
                 <td>
                   <ng-container *ngIf="!supplier.editMode; else editSupplierName">
                     {{ supplier.name }}

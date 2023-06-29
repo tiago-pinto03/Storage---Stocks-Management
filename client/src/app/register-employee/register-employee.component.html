@@ -29,11 +29,11 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-9 col-12 bg-light overflow-auto" style="height: 100vh;">
+    <div class="col-md-9 col-12 bg-light overflow-auto" style="height: 100vh;" *ngIf="loggedInEmployee?.isAdmin">
       <div class="container py-4">
         <div class="row">
           <div class="col-md-6 offset-md-3">
-            <h2 class="text-center">Registrar Funcionário</h2>
+            <h2 class="text-center">Registar Funcionário</h2>
             <form (ngSubmit)="register()" #registerForm="ngForm">
               <div class="form-group">
                 <label for="name">Nome</label>
@@ -59,5 +59,14 @@
         </div>
       </div>
     </div>
+    <div class="col-md-9 col-12 bg-light overflow-auto" style="height: 100vh;" *ngIf="!loggedInEmployee?.isAdmin">
+      <div class="container py-4">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <h2 class="text-center">NAO TEM PERMISSÕES</h2>
+            <p>Para registar um novo funcionário é necessário permissõs de administrador</p>
+          </div>
+        </div>
+      </div>
   </div>
 </div>

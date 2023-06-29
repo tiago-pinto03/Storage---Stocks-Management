@@ -39,14 +39,13 @@
           <table class="table">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Nome</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let cat of category">
-                <td>{{ cat.id }}</td>
+                <!-- <td>{{ cat.id }}</td>-->
                 <td>
                   <ng-container *ngIf="!cat.editMode; else editCategoryName">
                     {{ cat.name }}
