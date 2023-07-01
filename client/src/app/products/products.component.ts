@@ -127,7 +127,18 @@ export class ProductsComponent implements OnInit {
   editProduct(product: Product): void {
     this.selectedProduct = product;
     this.editedProduct = { ...product };
+
+    const lastSelectedCategory = this.category.find(cat => cat.name === this.editedProduct.category?.name);
+    if (lastSelectedCategory) {
+      this.editedProduct.category = lastSelectedCategory;
+    }
+
+    const lastSelectedSupplier = this.supplier.find(sup => sup.name === this.editedProduct.supplier?.name);
+    if (lastSelectedSupplier) {
+      this.editedProduct.supplier = lastSelectedSupplier;
+    }
   }
+
 
   updateProduct() {
     this.productService.updateProduct(this.editedProduct)

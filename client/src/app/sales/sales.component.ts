@@ -185,7 +185,14 @@ export class SalesComponent implements OnInit {
   onEditClick(sale: Sales) {
     this.showEditSales = true;
     this.editedSale = { ...sale };
+
+    this.editedSale.product = this.products.find(product => product.id === sale?.product?.id);
+
+    this.editedSale.client = this.clients.find(client => client.id === sale?.client?.id);
+
+    this.editedSale.employee = this.employees.find(employee => employee.id === sale?.employee?.id);
   }
+
 
   updateProductId(productId: string): void {
     this.newSale.product = this.products.find(product => product.id === productId);
