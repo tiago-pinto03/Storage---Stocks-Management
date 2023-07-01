@@ -26,7 +26,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClients()
         {
-            var client = await _context.Clients.Select(u => new
+            var client = await _context.Clients.OrderBy(o => o.Name).Select(u => new
             {
                 u.Id,
                 u.Name,

@@ -25,6 +25,7 @@ namespace API.Controllers
                 .Include(s => s.Product)
                 .Include(s => s.Client)
                 .Include(s => s.Employee)
+                .OrderBy(o => o.Product.Name)
                 .ToListAsync();
 
             var salesDtoList = sales.Select(s => new SalesDto

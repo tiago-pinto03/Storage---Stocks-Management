@@ -19,7 +19,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Products.Include(p => p.Supplier).Include(c => c.Category).ToListAsync();
+            return await _context.Products.Include(p => p.Supplier).Include(c => c.Category).OrderBy(o => o.Name).ToListAsync();
         }
 
 

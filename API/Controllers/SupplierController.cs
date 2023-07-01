@@ -20,7 +20,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Supplier>>> GetSuppliers()
         {
-            return await _context.Suppliers.ToListAsync();
+            return await _context.Suppliers.OrderBy(o => o.Name).ToListAsync();
         }
 
         [HttpGet("{id}")]

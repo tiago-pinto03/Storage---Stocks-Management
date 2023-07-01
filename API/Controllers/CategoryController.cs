@@ -20,7 +20,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCatedories()
         {
-            return await _context.Category.ToListAsync();
+            return await _context.Category.OrderBy(o => o.Name).ToListAsync();
         }
 
         [HttpGet("{id}")]

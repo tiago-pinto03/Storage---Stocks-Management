@@ -26,7 +26,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-            var emp = await _context.Employees.Select(u => new
+            var emp = await _context.Employees.OrderBy(o => o.Name).Select(u => new
             {
                 u.Id,
                 u.Name,

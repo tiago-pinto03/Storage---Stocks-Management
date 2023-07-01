@@ -63,6 +63,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         const chartLabels = Object.keys(aggregatedData);
         const chartData = Object.values(aggregatedData);
 
+        const backgroundColors = chartData.map(() => {
+          const r = Math.floor(Math.random() * 256);
+          const g = Math.floor(Math.random() * 256);
+          const b = Math.floor(Math.random() * 256);
+          return `rgba(${r}, ${g}, ${b}, 0.6)`;
+        });
+
         this.salesChartData = new Chart(this.salesChartRef.nativeElement, {
           type: 'bar',
           data: {
@@ -71,8 +78,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
               {
                 label: 'Quantidade de Vendas',
                 data: chartData,
-                backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: backgroundColors,
+                borderColor: 'rgb(220,220,220)',
                 borderWidth: 1
               }
             ]
@@ -92,6 +99,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
 
 
 }
