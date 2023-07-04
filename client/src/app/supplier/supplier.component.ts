@@ -67,7 +67,7 @@ export class SupplierComponent implements OnInit {
     this.supplierService.createSupplier(this.newSupplier).subscribe(
       (response) => {
         console.log('Supplier created successfully:', response);
-        this.toastr.error('Fornecedor criado com sucesso!');
+        this.toastr.success('Fornecedor criado com sucesso!');
         this.loadSuppliers();
         this.newSupplier = {};
       },

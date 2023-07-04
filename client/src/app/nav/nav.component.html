@@ -8,11 +8,12 @@
       data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown"
       aria-expanded="false"
-      aria-label="Toggle navigation">
+      aria-label="Toggle navigation"
+      (click)="navbarShow=!navbarShow">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="navbar-collapse collapse justify-content-end" id="navbarNav">
+    <div class="navbar-collapse collapse justify-content-end" id="navbarNav" [class.d-block]="navbarShow" [class.d-none]="!navbarShow">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="isLoggedIn"><a class="nav-link" routerLink="/dashboard">Dashboard</a></li>
         <li class="nav-item" *ngIf="isLoggedIn"><a class="nav-link" (click)="logout()" routerLink="/home">Sair</a></li>

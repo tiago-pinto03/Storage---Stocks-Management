@@ -11,6 +11,7 @@ declare var $: any;
 export class NavComponent {
   isLoggedIn: boolean = false;
   private tokenKey = '';
+  navbarShow:boolean = true;
 
   constructor(private authService: AuthService) {
     this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {

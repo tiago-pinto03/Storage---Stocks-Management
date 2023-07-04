@@ -83,7 +83,7 @@ namespace API.Controllers
 
 
         // Register: api/Employee/register
-        [Authorize]
+        //[Authorize]
         [HttpPost("register")]
         public async Task<ActionResult<EmployeeDto>> Register(RegisterDto registerDto)
         {
