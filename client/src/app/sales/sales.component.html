@@ -64,7 +64,6 @@
             <div class="card mb-3">
               <div class="card-body">
                 <ng-container *ngIf="!showEditSales || editedSale.id !== sale.id">
-                  <p class="card-text">ID Venda: {{ sale.id }}</p>
                   <p class="card-text">Preço Venda: {{ sale.price }}</p>
                   <p class="card-text">Quantidade Produtos: {{ sale.quantity }}</p>
                   <p class="card-text">Nome Produto: {{ sale.product?.name }}</p>
@@ -72,8 +71,6 @@
                   <p class="card-text">Nome Funcionário: {{ sale.employee?.name }}</p>
                 </ng-container>
                 <ng-container *ngIf="showEditSales && editedSale.id === sale?.id">
-                  <label>ID VENDA</label>
-                  <input [(ngModel)]="editedSale.id" type="text" class="form-control" readonly>
                   <label>Quantidade</label>
                   <input [(ngModel)]="editedSale.quantity" type="text" class="form-control">
 
